@@ -1,0 +1,5 @@
+{%- assign compare_at_price = product.compare_at_price | money | remove: '.00' -%}
+{%- if settings.launchpad_sale_active and product.metafields.tsio-workshop-msrp and product.metafields.tsio-workshop-msrp != empty -%}
+  {%- assign compare_at_price = product.metafields.tsio-workshop-msrp | prepend: '$' -%}
+{%- endif -%}
+{{- compare_at_price -}}

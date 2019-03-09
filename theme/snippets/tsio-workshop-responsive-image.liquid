@@ -1,0 +1,86 @@
+{%- comment -%}
+  usage:
+  {%- include 'tsio-workshop-responsive-image', fileName: 'filename.jpg', fileNameDesktop: 'filename-dt.jpg', utilizeImageKit: true -%}
+{%- endcomment -%}
+{%- assign imgSizeLoRes = settings.break_iphone_plus_up | remove: 'p' -%}
+{%- assign imgSizeIphonePlusUp = settings.break_tablet_portrait_up | remove: 'p' -%}
+{%- assign imgSizeTabletPortraitUp = settings.break_tablet_landscape_up | remove: 'p' -%}
+{%- assign imgSizeTabletLandscapeUp = settings.break_desktop_up | remove: 'p' -%}
+{%- assign imgSizeDesktopUp = settings.break_big_desktop_up | remove: 'p' -%}
+{%- assign imgSizeBigDesktopUp = 'master' -%}
+{%- assign imgName = fileName -%}
+
+{%- if imgName == 'article.img' -%}
+  {%- assign imgName = article.image.src -%}
+{%- endif -%}
+
+{%- unless imgName contains '.jpg' -%}
+  {%- unless imgName contains '.png' -%}
+    {%- assign imgName = imgName | append: '.jpg' -%}
+  {%- endunless -%}
+{%- endunless -%}
+
+{%- assign isArtDirected = false -%}
+{%- if fileNameDesktop -%}
+  {%- assign isArtDirected = true -%}
+  {%- assign imgNameDesktop = fileNameDesktop -%}
+  {%- unless imgNameDesktop contains '.jpg' -%}
+    {%- unless imgNameDesktop contains '.png' -%}
+      {%- assign imgNameDesktop = imgNameDesktop | append: '.jpg' -%}
+    {%- endunless -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if imgName contains 'products/' -%}
+  {%- assign imgLoRes = imgName | product_img_url: imgSizeLoRes, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgIphonePlusUp = imgName | product_img_url: imgSizeIphonePlusUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgTabletPortraitUp = imgName | product_img_url: imgSizeTabletPortraitUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- if isArtDirected -%}
+    {% assign imgName = imgNameDesktop %}
+  {%- endif -%}
+  {%- assign imgTabletLandscapeUp = imgName | product_img_url: imgSizeTabletLandscapeUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgDesktopUp = imgName | product_img_url: imgSizeDesktopUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgBigDesktopUp = imgName | product_img_url: imgSizeBigDesktopUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+{%- elsif imgName contains 'articles/' -%}
+  {%- assign imgLoRes = imgName | article_img_url: imgSizeLoRes, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgIphonePlusUp = imgName | article_img_url: imgSizeIphonePlusUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgTabletPortraitUp = imgName | article_img_url: imgSizeTabletPortraitUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- if isArtDirected -%}
+    {% assign imgName = imgNameDesktop %}
+  {%- endif -%}
+  {%- assign imgTabletLandscapeUp = imgName | article_img_url: imgSizeTabletLandscapeUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgDesktopUp = imgName | article_img_url: imgSizeDesktopUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgBigDesktopUp = imgName | article_img_url: imgSizeBigDesktopUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+{%- else -%}
+  {%- assign imgName = imgName | remove: 'files/' -%}
+  {%- assign imgLoRes = imgName | file_img_url: imgSizeLoRes, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgIphonePlusUp = imgName | file_img_url: imgSizeIphonePlusUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgTabletPortraitUp = imgName | file_img_url: imgSizeTabletPortraitUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- if isArtDirected -%}
+    {% assign imgName = imgNameDesktop | remove: 'files/' %}
+  {%- endif -%}
+  {%- assign imgTabletLandscapeUp = imgName | file_img_url: imgSizeTabletLandscapeUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgDesktopUp = imgName | file_img_url: imgSizeDesktopUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+  {%- assign imgBigDesktopUp = imgName | file_img_url: imgSizeBigDesktopUp, format: 'pjpg' | replace: '.jpeg.jpg', '.jpeg' -%}
+{%- endif -%}
+{%- comment -%}
+  For debug:
+  <!-- fileName: {{ fileName }} -->
+  <!-- imgName: {{ imgName }} -->
+  <!-- imgLoRes: {{ imgLoRes }} -->
+  <!-- utilizeImageKit: {{ utilizeImageKit }} -->
+{%- endcomment -%}
+<img alt="{{ alt }}"
+  class="lazyload {{ classes }}"
+  src="{%- if utilizeImageKit -%}{% include 'imagekit', src: imgLoRes %}{% else %}{{ imgLoRes }}{% endif %}"
+  {% if imgName contains 'products/' %}srcset="{{ 'icon-product-placeholder.svg' | asset_url }}"{% endif %}
+  data-src="{%- if utilizeImageKit -%}{% include 'imagekit', src: imgIphonePlusUp %}{% else %}{{ imgIphonePlusUp }}{% endif %}"
+  data-srcset="{%- if utilizeImageKit -%}{% include 'imagekit', src: imgLoRes %}{% else %}{{ imgLoRes }}{% endif %} {{ imgSizeLoRes | replace: 'x', 'w' }},
+    {%- if utilizeImageKit -%}{% include 'imagekit', src: imgIphonePlusUp %}{% else %}{{ imgIphonePlusUp }}{% endif %} {{ imgSizeIphonePlusUp | replace: 'x', 'w' }},
+    {%- if utilizeImageKit -%}{% include 'imagekit', src: imgTabletPortraitUp %}{% else %}{{ imgTabletPortraitUp }}{% endif %} {{ imgSizeTabletPortraitUp | replace: 'x', 'w' }},
+    {%- if utilizeImageKit -%}{% include 'imagekit', src: imgTabletLandscapeUp %}{% else %}{{ imgTabletLandscapeUp }}{% endif %} {{ imgSizeTabletLandscapeUp | replace: 'x', 'w' }},
+    {%- if utilizeImageKit -%}{% include 'imagekit', src: imgDesktopUp %}{% else %}{{ imgDesktopUp }}{% endif %} {{ imgSizeDesktopUp | replace: 'x', 'w' }},
+    {%- if utilizeImageKit -%}{% include 'imagekit', src: imgBigDesktopUp %}{% else %}{{ imgBigDesktopUp }}{% endif %} 1980w"
+  data-sizes="auto"
+  {{ data }}
+/>

@@ -1,0 +1,554 @@
+{%- comment -%}
+  This Section canvas be applied to multiple templates, including but not
+  limited to:
+  * A Unified Workshop Overview "Collection"
+  * Gender Collections
+  * Active Projects Collection
+  * In-Production Listing
+{%- endcomment -%}
+{% schema %}
+  {
+    "name": "Workshop Progress",
+    "settings": [
+      {
+        "id": "ws_bar_color_progress",
+        "type": "color",
+        "label": "Bar Color",
+        "default": "#0f2130"
+      },
+      {
+        "id": "ws_bar_height",
+        "type": "text",
+        "label": "Bar Height",
+        "default": "14px"
+      },
+      {
+        "id": "ws_bar_border_width",
+        "type": "text",
+        "label": "Bar Border Width",
+        "default": "0"
+      },
+      {
+        "id": "ws_bar_border_radius",
+        "type": "text",
+        "label": "Bar Border Radius",
+        "default": "0"
+      },
+      {
+        "id": "ws_bar_border_color",
+        "type": "color",
+        "label": "Bar Border Color",
+        "default": "#fafafa"
+      },
+      {
+        "id": "ws_bar_color_bg",
+        "type": "color",
+        "label": "Bar Background",
+        "default": "#f2f2f2"
+      }
+    ]
+  }
+{% endschema %}
+{% stylesheet 'scss' %}
+  @mixin keyframes($animationName){
+    @-webkit-keyframes $animationName { @content;}
+    @keyframes $animationName { @content;}
+  }
+
+  @for $i from 0 through 100 {
+    @include keyframes(progress-#{$i}){
+      from { width: 0;}
+      to { width: percentage($i / 100);}
+    }
+  }
+
+  .ws-data{
+    position: relative;
+    overflow: hidden;
+
+    &:before,
+    &:after{
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+    }
+    &:before{ width: 100%;}
+    &:after{
+      z-index: 2;
+      animation-name: progress-100;
+      animation-delay: 1s;
+      animation-duration: 0.7s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+    }
+    @for $i from 0 through 100 {
+      &[data-ws-progress="#{$i}%"]:after{ animation-name: progress-#{$i};}
+    }
+  }
+{% endstylesheet %}
+<style>
+  {%- assign wsBarHeight = section.settings.ws_bar_height -%}
+  {%- assign wsBarColor = section.settings.ws_bar_color_progress -%}
+  {%- assign wsBarColorBg = section.settings.ws_bar_color_bg -%}
+  {%- assign wsBarBorderWidth = section.settings.ws_bar_border_width -%}
+  {%- assign wsBarBorderColor = section.settings.ws_bar_border_color -%}
+  {%- assign wsBarBorderRadius = section.settings.ws_bar_border_radius -%}
+  .ws-data:before,
+  .ws-data:after{
+    height: {{ wsBarHeight }};
+    border: {{ wsBarBorderWidth }} solid {{ wsBarBorderColor }};
+    border-radius: {{ wsBarBorderRadius }};
+  }
+  .ws-data:before{ background: {{ wsBarColorBg }};}
+  .ws-data:after{ background: {{ wsBarColor }};}
+</style>
+{%- comment -%}
+  These are app-generated and -maintained Collections
+{%- endcomment -%}
+{%- assign workshopActiveProjects = collections['workshop-projects-active'] -%}
+{%- assign workshopActivePreOrders = collections['workshop-projects-active-pre-orders'] -%}
+{%- assign workshopInProduction = collections['workshop-projects-in-production'] -%}
+{%- comment -%}
+  Check what template we're on, since this is a re-usable template and not all
+  front-end pages necessarily require _all_ of the elements
+{%- endcomment -%}
+{%- assign primaryWorkshopPage = false -%}
+{%- assign activeWorkshopPage = false -%}
+{%- case collection.handle -%}
+  {%- when 'workshop' or 'mens-workshop' or 'womens-workshop' -%}
+    {%- assign primaryWorkshopPage = true -%}
+  {%- when 'active-workshop-products' -%}{%- comment %}This could use / modify app-generated collection()?){% endcomment -%}
+    {%- assign activeWorkshopPage = true -%}
+{%- endcase -%}
+{%- comment -%}
+  Initiate empty variables for population...
+{%- endcomment -%}
+{%- assign theProject = '' -%}
+{%- assign activeProjects = '' -%}
+{%- assign activeProjectsMen = '' -%}
+{%- assign activeProjectsWomen = '' -%}
+{%- assign inProduction = '' -%}
+{%- assign inProductionMen = '' -%}
+{%- assign inProductionWomen = '' -%}
+{%- assign preOrders = '' -%}
+{%- assign preOrdersMen = '' -%}
+{%- assign preOrdersWomen = '' -%}
+{%- comment -%}
+  Capture all the Project objects and build their individual HTML templates
+{%- endcomment -%}
+{%- capture theWorkshop -%}
+  {%- comment -%} Check for Active Workshop projects {%- endcomment -%}
+  {%- for product in workshopActiveProjects.products -%}
+    {%- capture theProject -%}
+      {%- comment -%}
+        NOTE:
+        This include contains all the <li> html contents to display a "project
+        panel", a variation on what most themes have contained in a snippet
+        called product-grid-item.liquid
+      {%- endcomment -%}
+      {%- include 'tsio-workshop-product-grid-item-panel' -%}
+    {%- endcapture -%}
+    {%- comment -%} Capture all Active projects {%- endcomment -%}
+    {%- capture activeProjects -%}{%- unless activeProjects == '' -%}{{ activeProjects }}{%- endunless -%}
+      {{ theProject }}
+    {%- endcapture -%}
+    {%- if product.tags contains 'WOMENS' -%}
+      {%- comment -%} Capture all Active Womens projects {%- endcomment -%}
+      {%- capture activeProjectsWomen -%}{%- unless activeProjectsWomen == '' -%}{{ activeProjectsWomen }}{%- endunless -%}
+        {{ theProject }}
+      {%- endcapture -%}
+    {%- elsif product.tags contains 'MENS' -%}
+      {%- comment -%} Capture all Active Mens projects {%- endcomment -%}
+      {%- capture activeProjectsMen -%}{%- unless activeProjectsMen == '' -%}{{ activeProjectsMen }}{%- endunless -%}
+        {{ theProject }}
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- comment -%} Check for Pre-Order projects {%- endcomment -%}
+  {%- for product in workshopActivePreOrders.products -%}
+    {%- comment -%} Capture all Active Pre-Order projects {%- endcomment -%}
+    {%- capture preOrders -%}{%- unless preOrders == '' -%}{{ preOrders }}{%- endunless -%}{%- include 'tsio-workshop-product-grid-item' -%}{%- endcapture -%}
+    {%- if product.tags contains 'WOMENS' -%}
+      {%- comment -%} Capture Active Womens Pre-Order projects {%- endcomment -%}
+      {%- capture preOrdersWomen -%}{%- unless preOrdersWomen == '' -%}{{ preOrdersWomen }}{%- endunless -%}{%- include 'tsio-workshop-product-grid-item' -%}{%- endcapture -%}
+    {%- elsif product.tags contains 'MENS' -%}
+      {%- comment -%} Capture Active Mens Pre-Order projects {%- endcomment -%}
+      {%- capture preOrdersMen -%}{%- unless preOrdersMen == '' -%}{{ preOrdersMen }}{%- endunless -%}{%- include 'tsio-workshop-product-grid-item' -%}{%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- comment -%} Check for In-Production Products {%- endcomment -%}
+  {%- for product in workshopInProduction.products -%}
+    {%- comment -%} Capture all In-Production Products {%- endcomment -%}
+    {%- capture inProduction -%}{%- unless inProduction == '' -%}{{ inProduction }}{%- endunless -%}{%- include 'tsio-workshop-product-grid-item' -%}{%- endcapture -%}
+    {%- if product.tags contains 'WOMENS' -%}
+      {%- comment -%} Capture Womens In-Production Products {%- endcomment -%}
+      {%- capture inProductionWomen -%}{%- unless inProductionWomen == '' -%}{{ inProductionWomen }}{%- endunless -%}{%- include 'tsio-workshop-product-grid-item' -%}{%- endcapture -%}
+    {%- elsif product.tags contains 'MENS' -%}
+      {%- comment -%} Capture Mens In-Production Products {%- endcomment -%}
+      {%- capture inProductionMen -%}{%- unless inProductionMen == '' -%}{{ inProductionMen }}{%- endunless -%}{%- include 'tsio-workshop-product-grid-item' -%}{%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- comment -%}
+    NOTE: We are still inside a capture(!)
+  {%- endcomment -%}
+  {%- comment -%} Create & capture Active Projects DOM {%- endcomment -%}
+  {%- if primaryWorkshopPage or activeWorkshopPage -%}
+    {%- unless activeProjects == '' -%}
+      <div class="tabs figcaption" id="active-projects-tab">
+        <span class="pre-heading">{{ 'tsio.workshop.title_active_alternate' | t }}</span>
+        <ul>
+          <li>
+            <h2 class="heading">
+              <a data-tab="active-projects" data-tab-group="1" href="#active-projects-tab" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_active' | t }}
+              </a>
+            </h2>
+          </li>
+        </ul>
+        {%- comment -%}
+          NOTE: JS used to implement sorting fn
+        {%- endcomment -%}
+        <ul id="active-workshop-sort" class="tabs-right">
+          <li>
+            <h2>
+              <a href="/collections/workshop?sorted=end-date-asc" data-sort-val="end-date-asc">
+                {{ 'tsio.workshop.ui_ending_date_asc' | t }}
+              </a>
+            </h2>
+          </li>
+          <li>
+            <h2>
+              <a href="/collections/workshop?sorted=end-date-desc" data-sort-val="end-date-desc">
+                {{ 'tsio.workshop.ui_ending_date_desc' | t }}
+              </a>
+            </h2>
+          </li>
+        </ul>
+        {%- comment -%}
+          NOTE: JS used to implement tabbing fn
+        {%- endcomment -%}
+        <ul class="tabs-right hidden">
+          <li>
+            <h2>
+              <a data-tab-department="mens" href="#active-projects-tab">
+                {{ 'global.departments.men_html' | t | capitalize }}
+              </a>
+            </h2>
+          </li>
+          <li>
+            <h2>
+              <a data-tab-department="womens" href="#active-projects-tab">
+                {{ 'global.departments.women_html' | t | capitalize }}
+              </a>
+            </h2>
+          </li>
+        </ul>
+      </div>
+      <div id="active-projects-content" data-tab-group="1">
+        <ul class="editorial-panels{% if settings.launchpad_sale_active %} sitewide-sale{% endif %}" data-tab-department="mens">
+          {{ activeProjectsMen }}
+          {%- include 'tsio-collection-matrix-flex-fixer' -%}
+        </ul>
+        <ul class="editorial-panels{% if settings.launchpad_sale_active %} sitewide-sale{% endif %}" data-tab-department="womens">
+          {{ activeProjectsWomen }}
+          {%- include 'tsio-collection-matrix-flex-fixer' -%}
+        </ul>
+      </div>
+    {%- endunless -%}
+  {%- endif -%}
+  {%- comment -%} Create & capture Active Pre-Orders & In-Production DOM (tabs) {%- endcomment -%}
+  {%- if preOrders != '' or inProduction != '' -%}
+    <div class="tabs figcaption" id="preorders-in-production">
+      <span class="pre-heading">{{ 'tsio.workshop.title_in_production_alternate' | t }}</span>
+      <ul>
+        {%- unless preOrders == '' -%}
+          <li>
+            <h2>
+              <a data-tab="pre-orders" data-tab-group="2" href="#preorders-in-production" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_pre_order' | t }}
+              </a>
+            </h2>
+          </li>
+        {%- endunless -%}
+        {%- unless inProduction == '' -%}
+          <li>
+            <h2>
+              <a data-tab="in-production" data-tab-group="2" href="#preorders-in-production" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_in_production' | t }}
+              </a>
+            </h2>
+          </li>
+        {%- endunless -%}
+      </ul>
+      {%- comment -%}
+        NOTE: JS used to implement tabbing fn
+      {%- endcomment -%}
+      <ul class="tabs-right hidden">
+        <li>
+          <h2>
+            <a data-tab-department="mens" href="#preorders-in-production">
+              {{ 'global.departments.men_html' | t | capitalize }}
+            </a>
+          </h2>
+        </li>
+        <li>
+          <h2>
+            <a data-tab-department="womens" href="#preorders-in-production">
+              {{ 'global.departments.women_html' | t | capitalize }}
+            </a>
+          </h2>
+        </li>
+      </ul>
+    </div>
+  {%- endif -%}
+  {%- comment -%} Create & capture Active Pre-Orders DOM {%- endcomment -%}
+  {%- unless preOrders == '' -%}
+    <div class="tabs figcaption" id="pre-orders-tab">
+      <span class="pre-heading">{{ 'tsio.workshop.title_in_production_alternate' | t }}</span>
+      <ul>
+        <li>
+          <h2>{{ 'tsio.workshop.title_pre_order' | t }}</h2>
+        </li>
+      </ul>
+      {%- comment -%}
+        NOTE: JS used to implement tabbing fn
+      {%- endcomment -%}
+      <ul class="tabs-right">
+        <li>
+          <h2>
+            <a data-tab-department="mens" href="#pre-orders-tab">
+              {{ 'global.departments.men_html' | t | capitalize }}
+            </a>
+          </h2>
+        </li>
+        <li>
+          <h2>
+            <a data-tab-department="womens" href="#pre-orders-tab">
+              {{ 'global.departments.women_html' | t | capitalize }}
+            </a>
+          </h2>
+        </li>
+      </ul>
+    </div>
+    <div id="pre-orders-content" data-tab-group="2">
+      <ul class="product matrix" data-tab-department="mens">
+        {{ preOrdersMen }}
+        {%- include 'tsio-collection-matrix-flex-fixer' -%}
+      </ul>
+      <ul class="product matrix" data-tab-department="womens">
+        {{ preOrdersWomen }}
+        {%- include 'tsio-collection-matrix-flex-fixer' -%}
+      </ul>
+    </div>
+  {%- endunless -%}
+  {%- comment -%} Create & capture Active Pre-Orders DOM {%- endcomment -%}
+  {%- unless inProduction == '' -%}
+    <div class="tabs figcaption" id="in-production-tab">
+      <span class="pre-heading">{{ 'tsio.workshop.title_in_production_alternate' | t }}</span>
+      <ul>
+        <li>
+          <h2>
+            <a href="#in-production-tab" class="scroll-to-elem">
+              {{ 'tsio.workshop.title_in_production' | t }}
+            </a>
+          </h2>
+        </li>
+      </ul>
+      {%- comment -%}
+        NOTE: JS used to implement tabbing fn
+      {%- endcomment -%}
+      <ul class="tabs-right hidden">
+        <li>
+          <h2>
+            <a data-tab-department="mens" href="#in-production-tab">
+              {{ 'global.departments.men_html' | t | capitalize }}
+            </a>
+          </h2>
+        </li>
+        <li>
+          <h2>
+            <a data-tab-department="womens" href="#in-production-tab">
+              {{ 'global.departments.women_html' | t | capitalize }}
+            </a>
+          </h2>
+        </li>
+      </ul>
+    </div>
+    <div id="in-production-content" data-tab-group="2">
+      <ul class="product matrix" data-tab-department="mens">
+        {{ inProductionMen }}
+        {%- include 'tsio-collection-matrix-flex-fixer' -%}
+      </ul>
+      <ul class="product matrix" data-tab-department="womens">
+        {{ inProductionWomen }}
+        {%- include 'tsio-collection-matrix-flex-fixer' -%}
+      </ul>
+    </div>
+  {%- endunless -%}
+{%- endcapture -%}
+{%- comment -%}
+  NOTE: Here is the primary page-wrapping HTML!
+{%- endcomment -%}
+<article role="main" class="container clearfix" data-snap-ignore="true">
+  <div class="filtered-collection">
+    {%- if primaryWorkshopPage -%}
+      <aside class="sidebar">
+        <ul>
+          {%- unless activeProjects == '' -%}
+            <li>
+              <a href="#active-projects-tab" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_active_truncated' | t }}
+              </a>
+            </li>
+          {%- endunless -%}
+          {%- unless preOrders == '' -%}
+            <li>
+              <a href="#preorders-in-production" class="scroll-to-elem" data-tab="pre-orders" data-tab-group="2">
+                {{ 'tsio.workshop.title_pre_order' | t }}
+              </a>
+            </li>
+          {%- endunless -%}
+          {%- unless inProduction == '' -%}
+            <li>
+              <a href="#preorders-in-production" class="scroll-to-elem" data-tab="in-production" data-tab-group="2">
+                {{ 'tsio.workshop.title_in_production' | t }}
+              </a>
+            </li>
+          {%- endunless -%}
+          <li>
+            <a href="#faq" class="scroll-to-elem">
+              {{ 'global.miscellaneous.faq_abbr' | t }}
+            </a>
+          </li>
+        </ul>
+      </aside>
+    {%- endif -%}
+    <section id="shop"{% if primaryWorkshopPage %} class="has-sidebar" {% endif %}>
+      <h1 class="heading"><span>{{ page_title }}</span></h1>
+      {%- if primaryWorkshopPage -%}
+        <ul class="inline-menu">
+          {%- unless activeProjects == '' -%}
+            <li class="active">
+              <a href="#active-projects-tab" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_active_truncated' | t }}
+              </a>
+            </li>
+          {%- endunless -%}
+          {%- unless preOrders == '' -%}
+            <li>
+              <a href="#pre-orders-tab" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_pre_order' | t }}
+              </a>
+            </li>
+          {%- endunless -%}
+          {%- unless inProduction == '' -%}
+            <li>
+              <a href="#in-production-tab" class="scroll-to-elem">
+                {{ 'tsio.workshop.title_in_production' | t }}
+              </a>
+            </li>
+          {%- endunless -%}
+          <li>
+            <a href="#faq" class="scroll-to-elem">
+              {{ 'global.miscellaneous.faq_abbr' | t }}
+            </a>
+          </li>
+        </ul>
+      {%- endif -%}
+      <p class="intro">{{ collection.description | strip_html }}</p>
+      <aside class="workshop-stats stat-counters">
+        {%- comment -%}
+          TODO: @jayvin
+          customers_dollars_saved metafield should / will be renamed [...]_spent
+          since that is more appropriate. Calc is then done below, based on 20%
+          average saving on a Workshop Product
+        {%- endcomment -%}
+        {%- if collection.metafields.workshop.customers_dollars_spent -%}
+          {%- assign workshopDollarsSpent = collection.metafields.workshop.customers_dollars_spent -%}
+        {%- else -%}
+          {%- assign workshopDollarsSpent = collection.metafields.workshop.customers_dollars_saved -%}
+        {%- endif -%}
+        {%- assign workshopDollarsSpentMultiple = workshopDollarsSpent | divided_by: 0.8 -%}
+        {%- assign workshopDollarsSaved = workshopDollarsSpentMultiple | minus: workshopDollarsSpent -%}
+        {%- assign workshopDollarsSaved = workshopDollarsSaved | divided_by: 1000000 -%}
+        {%- assign workshopDollarsSaved = workshopDollarsSaved | round: 2 -%}
+        {%- assign workshopMembers = collection.metafields.workshop.unique_customers -%}
+        {%- assign workshopProjectsEnded = collection.metafields.workshop.campaigns_ended -%}
+        {%- assign workshopProjectsEndedSuccessfully = collection.metafields.workshop.campaigns_ended_successfully -%}
+        <p>
+          <span class="stat" data-count-up="{{ workshopDollarsSaved }}" data-decimal="1" data-prefix="$" data-suffix="m">
+            <span>${{ workshopDollarsSaved }}m</span>
+          </span>
+          <span>{{ 'tsio.workshop.highlight_customer_savings' | t }}</span>
+        </p>
+        <p>
+          <span class="stat" data-count-up="{{ workshopMembers }}" data-decimal="0" data-prefix="" data-suffix="">
+            <span>{%- include 'tsio-workshop-format-thousands' with workshopMembers -%}</span>
+          </span>
+          <span>{{ 'tsio.workshop.highlight_members_count' | t }}</span>
+        </p>
+        <p>
+          <span class="stat" data-count-up="{{ workshopProjectsEnded }}" data-decimal="0" data-prefix="" data-suffix="">
+            <span>{{ workshopProjectsEnded }}</span>
+          </span>
+          <span>{{ 'tsio.workshop.highlight_projects_launched' | t }}</span>
+        </p>
+      </aside>
+      {%- comment -%}
+        NOTE: This is where the massive capture from above gets included!
+      {%- endcomment -%}
+      {{ theWorkshop }}
+    </section>
+  </div>
+  {%- unless collection.handle contains 'in-production' -%}
+    <div class="faqs container" id="faq">
+      <div class="content two-column-faqs">
+        <span class="pre-heading">{{ 'global.customer_service.cx_help' | t }}</span>
+        <h2>{{ 'global.miscellaneous.faq_truncated' | t }}</h2>
+        {{ pages.crowdfunding-workshop-faq.content }}
+      </div>
+    </div>
+  {%- endunless %}
+</article>
+{% javascript %}
+  (function(){
+    var countDownsAvailable = document.querySelectorAll('.ws-countdown');
+    var loadScript = function(url, cb){
+        var script = document.createElement('script');
+        script.async = true;
+        script.onerror = function() {
+            console.log('workshop error loading script', url);
+        };
+        script.onload = cb;
+        script.src = url;
+
+        document.getElementsByTagName("head")[0].appendChild(script);
+    };
+
+    var initCountdowns = function($){
+      !function(t){"use strict";var e=[],s=[],i={precision:100,elapse:!1,defer:!1};s.push(/^[0-9]*$/.source),s.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),s.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),s=new RegExp(s.join("|"));var o={Y:"years",m:"months",n:"daysToMonth",d:"daysToWeek",w:"weeks",W:"weeksToMonth",H:"hours",M:"minutes",S:"seconds",D:"totalDays",I:"totalHours",N:"totalMinutes",T:"totalSeconds"};var n=function(s,o,n){this.el=s,this.$el=t(s),this.interval=null,this.offset={},this.options=t.extend({},i),this.firstTick=!0,this.instanceNumber=e.length,e.push(this),this.$el.data("tsiocountdown-instance",this.instanceNumber),n&&("function"==typeof n?(this.$el.on("update.tsiocountdown",n),this.$el.on("stoped.tsiocountdown",n),this.$el.on("finish.tsiocountdown",n)):this.options=t.extend({},i,n)),this.setFinalDate(o),!1===this.options.defer&&this.start()};t.extend(n.prototype,{start:function(){null!==this.interval&&clearInterval(this.interval);var t=this;this.update(),this.interval=setInterval(function(){t.update.call(t)},this.options.precision)},stop:function(){clearInterval(this.interval),this.interval=null,this.dispatchEvent("stoped")},toggle:function(){this.interval?this.stop():this.start()},pause:function(){this.stop()},resume:function(){this.start()},remove:function(){this.stop.call(this),e[this.instanceNumber]=null,delete this.$el.data().tsioCountdownInstance},setFinalDate:function(t){this.finalDate=function(t){if(t instanceof Date)return t;if(String(t).match(s))return String(t).match(/^[0-9]*$/)&&(t=Number(t)),String(t).match(/\-/)&&(t=String(t).replace(/\-/g,"/")),new Date(t);throw new Error("Couldn't cast `"+t+"` to a date object.")}(t)},update:function(){if(0!==this.$el.closest("html").length){var t,e=new Date;t=this.finalDate.getTime()-e.getTime(),t=Math.ceil(t/1e3),t=!this.options.elapse&&t<0?0:Math.abs(t),this.totalSecsLeft===t||this.firstTick?this.firstTick=!1:(this.totalSecsLeft=t,this.elapsed=e>=this.finalDate,this.offset={seconds:this.totalSecsLeft%60,minutes:Math.floor(this.totalSecsLeft/60)%60,hours:Math.floor(this.totalSecsLeft/60/60)%24,days:Math.floor(this.totalSecsLeft/60/60/24)%7,daysToWeek:Math.floor(this.totalSecsLeft/60/60/24)%7,daysToMonth:Math.floor(this.totalSecsLeft/60/60/24%30.4368),weeks:Math.floor(this.totalSecsLeft/60/60/24/7),weeksToMonth:Math.floor(this.totalSecsLeft/60/60/24/7)%4,months:Math.floor(this.totalSecsLeft/60/60/24/30.4368),years:Math.abs(this.finalDate.getFullYear()-e.getFullYear()),totalDays:Math.floor(this.totalSecsLeft/60/60/24),totalHours:Math.floor(this.totalSecsLeft/60/60),totalMinutes:Math.floor(this.totalSecsLeft/60),totalSeconds:this.totalSecsLeft},this.options.elapse||0!==this.totalSecsLeft?this.dispatchEvent("update"):(this.stop(),this.dispatchEvent("finish")))}else this.remove()},dispatchEvent:function(e){var s,i=t.Event(e+".tsiocountdown");i.finalDate=this.finalDate,i.elapsed=this.elapsed,i.offset=t.extend({},this.offset),i.strftime=(s=this.offset,function(t){var e,i,n,a,h,l,r=t.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);if(r)for(var c=0,f=r.length;c<f;++c){var u=r[c].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/),p=(e=u[0],i=e.toString().replace(/([.?*+^$[\]\\(){}|-])/g,"\\$1"),new RegExp(i)),d=u[1]||"",v=u[3]||"",g=null;u=u[2],o.hasOwnProperty(u)&&(g=o[u],g=Number(s[g])),null!==g&&("!"===d&&(a=g,h=void 0,l=void 0,h="s",l="",(n=v)&&(1===(n=n.replace(/(:|;|\s)/gi,"").split(/\,/)).length?h=n[0]:(l=n[0],h=n[1])),g=Math.abs(a)>1?h:l),""===d&&g<10&&(g="0"+g.toString()),t=t.replace(p,g.toString()))}return t=t.replace(/%%/,"%")}),this.$el.trigger(i)}}),t.fn.tsioCountdown=function(){var s=Array.prototype.slice.call(arguments,0);return this.each(function(){var i=t(this).data("tsiocountdown-instance");if(void 0!==i){var o=e[i],a=s[0];n.prototype.hasOwnProperty(a)?o[a].apply(o,s.slice(1)):null===String(a).match(/^[$A-Z_][0-9A-Z_$]*$/i)?(o.setFinalDate.call(o,a),o.start()):t.error("Method %s does not exist on jQuery.tsioCountdown".replace(/\%s/gi,a))}else new n(this,s[0],s[1])})}}($);
+
+      $(function(){
+        $('.ws-period time').each(function(){
+            $(this).tsioCountdown($(this).attr('datetime') + ' 23:59:59', function(event) {
+              $(this).html(event.strftime('%-Dd %Hh %Mm %Ss'));
+            });
+        });
+      });
+    };
+
+    if(countDownsAvailable.length){
+      if ((typeof jQuery === 'undefined') || (parseFloat(jQuery.fn.jquery) < 1.7)) {
+        loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', function(){
+          jQueryTSIOWorkshop = jQuery.noConflict(true);
+          initCountdowns(jQueryTSIOWorkshop);
+        });
+      } else {
+        initCountdowns(jQuery);
+      }
+    }
+  })();
+{% endjavascript %}

@@ -1,0 +1,33 @@
+{
+  "tsio": {
+    "workshop": {
+      "title_active": "Active Projects",
+      "title_active_truncated": "Active",
+      "title_active_alternate": "Currently Funding",
+      "title_pre_order": "Pre-Order",
+      "title_in_production": "In Production",
+      "title_in_production_alternate": "Funding Completed",
+      "highlight_customer_savings": "Customer Savings",
+      "highlight_members_count": "Workshop Members",
+      "highlight_projects_launched": "Products Launched",
+      "ui_price": "Regular",
+      "ui_compare_at_price": "Pre-Sale",
+      "ui_coming": "Funding Soon",
+      "ui_active_cta": "Fund Now",
+      "ui_progress": "Funded",
+      "ui_instant": "Now",
+      "ui_timing": "Funding Ends",
+      "ui_ended": "Funding Has Ended",
+      "ui_ending_date_asc": "Final Hours",
+      "ui_ending_date_desc": "Newest",
+      "ui_shipping": "Shipping",
+      "ui_estimated_shipping": "Estimated Shipping",
+      "ui_disclaimer_html": "By purchasing this product, you&rsquo;re participating in a crowd funding campaign. Please check the estimated shipping range above.",
+      "ui_pre_order_disclaimer_html": "By purchasing this product now, you&rsquo;re pre-ordering and reserving it for a later delivery. These products are limited and may not be available later. Please check the estimated shipping range above to see when we are anticipating delivery. We overproduce pre-order products as well so exchanges are easy.",
+      "ui_split_shipment_cut_off": "If ordered after",
+      "ui_split_shipment_batch_one": "Batch One",
+      "ui_split_shipment_batch_two": "Batch Two",
+      "ui_split_shipment_batch_three": "Batch Three"
+    }
+  }
+}
