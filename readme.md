@@ -71,9 +71,9 @@ Variables set up:
 
 The app can maintain three Custom Collections within your store:
 
-1. __Workshop Projects: Active__ can be accessed by handle e.g. `collections['workshop-projects-active']`
-2. __Workshop Projects: Active Pre-Orders__  can be accessed by handle e.g. `collections['workshop-projects-active-pre-orders'`
-3. __Workshop Projects: In-Production__ can be accessed by handle e.g. `collections['workshop-projects-in-production'`
+1. __Workshop Projects: Active__ can be accessed by handle `workshop-projects-active`
+2. __Workshop Projects: Active Pre-Orders__  can be accessed by handle `workshop-projects-active-pre-orders`
+3. __Workshop Projects: In-Production__ can be accessed by handle `workshop-projects-in-production`
 
 ### 5. Landing Page Install
 
@@ -85,7 +85,7 @@ __Pending Updates:__
 
 * [x] Conversion of campaign end date to animated countdown.
 * [x] Inclusion of estimated delivery date(s) within admin
-* [ ] Inclusion of estimated delivery date(s) on front-end 
+* [ ] Inclusion of estimated delivery date(s) on front-end
 * [ ] Inclusion of order cut off date(s) when multiple ship dates, within admin
 * [ ] Inclusion of order cut off date(s) when multiple ship dates, on front-end
 * [ ] Regular Collection template snippet includes.
