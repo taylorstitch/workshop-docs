@@ -1,0 +1,28 @@
+{%- comment -%}
+  This grabs the data field
+{%- endcomment -%}
+{%- assign wsData = wsProduct.metafields['tsio-workshop']['data'] -%}
+{%- if wsData -%}
+  {%- comment -%}
+    Here we assign the data to some Liquid Variables
+  {%- endcomment -%}
+  {%- assign wsPhase = wsData['phase'] -%}
+  {%- assign wsActive = wsData['active'] -%}
+  {%- assign wsStarts = wsData['starts_at'] -%}
+  {%- assign wsEnds = wsData['ends_at'] -%}
+  {%- assign wsTarget = wsData['threshold'] -%}
+  {%- assign wsSales = wsData['num_sold'] -%}
+  {%- assign wsProgress = wsSales | times: 100 | divided_by: wsTarget | round -%}
+  {%- assign wsShipDates = wsData['ship_dates'] -%}
+  {%- comment -%}
+    This can be used to print data to your dev console
+  {%- endcomment -%}
+  <script>
+    console.log('Workshop Product Data:');
+    console.dir({{ wsData | json }});
+  </script>
+{%- else -%}
+  <script>
+    console.log('Product Not in Workshop');
+  </script>
+{%- endif -%}
