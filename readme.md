@@ -30,7 +30,7 @@ The purpose of this snippet is to display goal progress, a remaining time countd
 
 ##### Product Section Styling
 
-Various aspect of this section — including the color(s), size and style of the progress bar can be altered via your theme setting panel, when viewing a Product page that has the included workshop section with an active campaign. The rendered HTML structure of the included elements is also shown below, for the purposes of further customization styling beyond what is inherited from your theme (typography, font sizing, etc.):
+Various aspect of this section — including the color(s), size and style of the progress bar can be altered via your theme setting panel, when viewing an active Project's Product that has the included workshop section. The rendered HTML structure of the included elements is also shown below, for the purposes of further customization styling beyond what is inherited from your theme (typography, font sizing, etc.):
 
 ``` html
 <section class="ws-data">
@@ -60,8 +60,8 @@ Variables set up:
 
 * `wsPhase` string where possible values are `crowd-sourced`, `pre-order`, `in-production`, `retail`
 * `wsActive` boolean true when Product phase is `crowd-sourced` or `pre-order`
-* `wsStarts` date of Workshop campaign start
-* `wsEnds` date of Workshop campaign end
+* `wsStarts` date of Workshop Project start
+* `wsEnds` date of Workshop Project end
 * `wsTarget` number representing sales target  
 * `wsSales` number representing current sales
 * `wsProgress` percentage (without `%`) of wsSales/wsTarget
@@ -83,7 +83,7 @@ __TBC__
 
 __Pending Updates:__
 
-* [x] Conversion of campaign end date to animated countdown.
+* [x] Conversion of Project end date to animated countdown.
 * [x] Inclusion of estimated delivery date(s) within admin
 * [ ] Inclusion of estimated delivery date(s) on front-end
 * [ ] Inclusion of order cut off date(s) when multiple ship dates, within admin
