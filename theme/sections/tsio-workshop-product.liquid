@@ -23,8 +23,7 @@
     ]
   }
 {% endschema %}
-{%- assign wsMeta = product.metafields['tsio-workshop'] -%}
-{%- assign wsData = wsMeta['data'] -%}
+{%- assign wsData = product.metafields['tsio-workshop']['data'] -%}
 {%- if wsData['phase'] == 'crowd-sourced' -%}
   {%- assign wsEnds = wsData['ends_at'] -%}
   {%- assign wsTarget = wsData['threshold'] -%}
@@ -52,6 +51,10 @@
     .ws-data ul:after{ background: {{ wsBarColor }};}
   </style>
 {%- endif -%}
+
+{%- include 'tsio-workshop-estimated-shipping-range', wsProduct: product -%}
+{%- include 'tsio-workshop-estimated-shipping-alert' -%}
+
 {% stylesheet 'scss' %}
   @mixin keyframes($animationName){
     @-webkit-keyframes $animationName { @content;}
@@ -111,6 +114,40 @@
       }
     }
   }
+
+  .ws-estimated-ship-date {
+    margin: 1em auto 1.5em;
+    padding: 1.25em;
+    border: 3px solid;
+    text-align: center;
+
+    p{ margin: 0;}
+
+    .ws-cut-off {
+      position: relative;
+      z-index: 2;
+      margin: 2em 0;
+
+      &:after {
+        content: '';
+        display: block;
+        position: relative;
+        z-index: 1;
+        width: 80%;
+        left: 10%;
+        top: -1em;
+        border-bottom: 1px solid;
+      }
+      i{
+        position: relative;
+        z-index: 2;
+        padding: 0 1em;
+      }
+    }
+
+    &.ws-multiple-ship-dates{ padding: 2em 1.25em;}
+  }
+
 {% endstylesheet %}
 
 {% javascript %}

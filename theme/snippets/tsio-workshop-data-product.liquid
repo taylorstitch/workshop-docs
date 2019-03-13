@@ -1,5 +1,8 @@
 {%- comment -%}
-  This grabs the data field
+  This grabs the Workshop Product data from metafield...
+
+    Usage:
+    {%- include 'tsio-workshop-data-product', wsProduct: product -%}
 {%- endcomment -%}
 {%- assign wsData = wsProduct.metafields['tsio-workshop']['data'] -%}
 {%- if wsData -%}
