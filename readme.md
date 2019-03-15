@@ -26,7 +26,7 @@ The application will add various code snippets to your store's primary theme, fo
 {% section 'tsio-workshop-product' %}
 ```
 
-The purpose of this snippet is to display goal progress, a remaining time countdown [and estimated ship dates tbc].
+The purpose of this snippet is to display goal progress, a remaining time countdown and estimated ship dates tbc.
 
 ##### Product Section Styling
 
