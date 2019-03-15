@@ -22,7 +22,7 @@ The application will add various code snippets to your store's primary theme, fo
 
 #### 3.1 Product Section
 
-```
+``` twig   
 {% section 'tsio-workshop-product' %}
 ```
 
@@ -32,7 +32,7 @@ The purpose of this snippet is to display goal progress, a remaining time countd
 
 Various aspect of this section — including the color(s), size and style of the progress bar can be altered via your theme setting panel, when viewing an active Project's Product that has the included workshop section. The rendered HTML structure of the included elements is also shown below, for the purposes of further customization styling beyond what is inherited from your theme (typography, font sizing, etc.):
 
-``` html
+``` twig
 <section class="ws-data">
   <ul>
     <li class="ws-period">
@@ -57,7 +57,7 @@ Shopify does not allow nesting of Sections out-of-the-box, but there is a workar
 
 Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, you should create a "token" e.g. `%%tsio-workshop-product%%`, then you can do something like this (also replacing the `shopify-section` class to avoid css bugs):
 
-``` html
+``` twig
 {% capture wsProductSection %}
   {% section 'tsio-workshop-product' %}
 {% endcapture %}
@@ -73,7 +73,7 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
 
 The following snippet, when included on a Product page or within a Product loop, will set Liquid variables for rendering or performing logic on:
 
-```
+``` twig
 {% include 'tsio-workshop-data-product', wsProduct: product %}
 ```
 
@@ -109,7 +109,7 @@ This snippet is included in the `tsio-workshop-product` Section as standard, alo
 
 A Product's Workshop Project data, including its current phase (e.g. 'crowd-sourced' vs 'retail') is stored as a metafield. Obviously these values change over time. It may be useful for departments within your business (like 3PL and finance) to have a snapshot of the phase at the time of purchase. To do that we suggest adding a hidden field on your Product page using logic like this:
 
-``` html
+``` twig 
 {% assign currentPhase = 'retail' %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
 {%- if wsData -%}
