@@ -20,7 +20,11 @@ The application receives `order.paid` and `order.refund` webhooks from your stor
 
 The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates. **It will not publish these to your theme's front-end**, it simply adds the code snippets and makes them available to the the theme files so that you can use the following Liquid to add related elements in a places you deem appropriate:
 
-#### 3.1 Product Section
+#### 3.1 Language Localization File
+
+The default English file `locales/en.default.json` provides all of verbiage used within the Workshop app (or at least that is the intention, please let us know if we have missed anything that remains hard-coded!) The `tsio` node will need to be added to your existing locales file(s).
+
+#### 3.2 Product Section
 
 ``` twig   
 {% section 'tsio-workshop-product' %}
@@ -67,7 +71,7 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
 {{ product_template }}
 ```
 
-#### 3.2 Other Theme Elements
+#### 3.3 Other Theme Elements
 
 ##### Product Meta Data
 
@@ -109,7 +113,7 @@ This snippet is included in the `tsio-workshop-product` Section as standard, alo
 
 A Product's Workshop Project data, including its current phase (e.g. 'crowd-sourced' vs 'retail') is stored as a metafield. Obviously these values change over time. It may be useful for departments within your business (like 3PL and finance) to have a snapshot of the phase at the time of purchase. To do that we suggest adding a hidden field on your Product page using logic like this:
 
-``` twig 
+``` twig
 {% assign currentPhase = 'retail' %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
 {%- if wsData -%}
