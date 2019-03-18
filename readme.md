@@ -18,7 +18,7 @@ The application receives `order.paid` and `order.refund` webhooks from your stor
 
 ### 3. App Assets Install
 
-The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates. **It will not publish these to your theme's front-end**, it simply adds the code snippets and makes them available to the the theme files so that you can use the following Liquid to add related elements in a places you deem appropriate:
+The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates. **It will not publish these to your theme's front-end**, it simply adds the code snippets and makes them available to the the theme files so that you can use the following Liquid to add related elements in any places you deem appropriate:
 
 #### 3.1 Language Localization File
 
@@ -30,7 +30,7 @@ The default English file `locales/en.default.json` provides all of verbiage used
 {% section 'tsio-workshop-product' %}
 ```
 
-The purpose of this snippet is to display goal progress, a remaining time countdown [and estimated ship dates tbc].
+The purpose of this snippet is to display goal progress, a remaining time countdown and estimated ship dates.
 
 ##### Product Section Styling
 
