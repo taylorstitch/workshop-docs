@@ -14,7 +14,7 @@ https://tsio-workshop.herokuapp.com/?shop={{ store }}.myshopify.com
 
 ### 2. Webhook Install
 
-The application receives `order.paid` and `order.refund` webhooks from your store so that it can track sales over time and progress towards your goals, in realtime. You can install these webhooks via the "Settings" tab within the app admin.
+The application installs and receives `order.paid` and `order.refund` webhooks from your store so that it can track sales over time and progress towards your goals, in realtime. 
 
 ### 3. App Assets Install
 
@@ -126,7 +126,7 @@ In the above we pre-assign the value as ‘retail’ and then re-assign it if Wo
 
 ### 4. Custom Collections Install
 
-The app can maintain three Custom Collections within your store:
+The app maintains three Custom Collections within your store:
 
 1. __Workshop Projects: Active__ can be accessed by handle `workshop-projects-active`
 2. __Workshop Projects: Active Pre-Orders__  can be accessed by handle `workshop-projects-active-pre-orders`
