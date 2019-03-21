@@ -46,10 +46,10 @@
 {%- endif -%}
 {%- comment -%}
   For debug
+  <script type="text/javascript">
+    console.log('Workshop Ship Dates Count: {{ wsShipDatesCount }}');
+    console.dir('{{ wsShipDates | json }}');
+    console.log('Workshop Order Deadlines Count: {{ wsOrderDeadlinesCount }}');
+    console.dir('{{ wsOrderDeadlines | json }}');
+  </script>
 {%- endcomment -%}
-<script type="text/javascript">
-  console.log('Workshop Ship Dates Count: {{ wsShipDatesCount }}');
-  console.dir('{{ wsShipDates | json }}');
-  console.log('Workshop Order Deadlines Count: {{ wsOrderDeadlinesCount }}');
-  console.dir('{{ wsOrderDeadlines | json }}');
-</script>
