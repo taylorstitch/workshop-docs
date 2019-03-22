@@ -14,7 +14,7 @@ https://tsio-workshop.herokuapp.com/?shop={{ store }}.myshopify.com
 
 ### 2. Webhook Install
 
-The application installs and receives `order.paid` and `order.refund` webhooks from your store so that it can track sales over time and progress towards your goals, in realtime. 
+The application installs and receives `order.paid` and `order.refund` webhooks from your store so that it can track sales over time and progress towards your goals, in realtime.
 
 ### 3. App Assets Install
 
@@ -143,7 +143,7 @@ __Pending Updates:__
 * [x] Conversion of Project end date to animated countdown.
 * [x] Inclusion of estimated delivery date(s) within admin
 * [x] Inclusion of estimated delivery date(s) on front-end
-* [ ] Inclusion of order cut off date(s) when multiple ship dates, within admin
+* [x] Inclusion of order cut off date(s) when multiple ship dates, within admin
 * [x] Inclusion of order cut off date(s) when multiple ship dates, on front-end
 * [x] Regular Collection template snippet includes.
 * [ ] Landing Page template.
