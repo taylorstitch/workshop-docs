@@ -28,10 +28,11 @@ The purpose of the Liquid below is to help ID different phases of Products withi
     {% assign isGiftCardProduct = true %}
     {% assign hasGiftCardProducts = true %}
   {% else %}
-
-    {% assign property_size = line.properties | size %}
-    {% if property_size > 0 %}
-      {% case line.properties['_Phase'] %}
+  
+    {% assign LIPs = line.properties %}
+    {% assign LIPCount = LIPs | size %}
+    {% if LIPCount > 0 %}
+      {% case LIPs['_Phase'] %}
         {% when 'crowd-sourced' %}
           {% assign isWorkshopProduct = true %}
           {% assign hasWorkshopProducts = true %}
@@ -71,4 +72,17 @@ The purpose of the Liquid below is to help ID different phases of Products withi
   {% endcomment %}
 
 {% endfor %}
+
+{% comment %}
+  Uncomment the following to "debug" inline:
+
+  <p>
+    <span class="bold">Debug:</span><br />
+    hasNoPhaseProducts: {{{{raw}}}}{{ hasNoPhaseProducts }}{{{{/raw}}}}<br />
+    hasWorkshopProducts: {{{{raw}}}}{{ hasWorkshopProducts }}{{{{/raw}}}}<br />
+    hasPreOrderProducts: {{{{raw}}}}{{ hasPreOrderProducts }}{{{{/raw}}}}<br />
+    hasRetailProducts: {{{{raw}}}}{{ hasRetailProducts }}{{{{/raw}}}}<br />
+    hasGiftCardProducts: {{{{raw}}}}{{ hasGiftCardProducts }}{{{{/raw}}}}
+  </p>
+{% endcomment %}
 ```
