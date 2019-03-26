@@ -92,10 +92,33 @@ Variables set up:
 * `wsProgress` number; percentage (without `%`) of wsSales/wsTarget
 * `wsShipDates` array; of (max 3) potential ship dates
 
+##### Product Add-To-Cart Disable
+
+``` twig
+{% assign addToCartDisable = false %}
+{% assign addToCartCTA = 'Add To Cart' %}
+{% include 'tsio-workshop-data-product', wsProduct: product %}
+{%- if wsData %}
+  {% case wsActive %}
+    {% when true -%}
+      {% case wsPhase %}
+        {% when 'crowd-sourced' -%}
+          {% assign addToCartCTA = 'Fund Now' %}
+        {% when 'pre-order' -%}
+          {% assign addToCartCTA = 'Pre-Order' %}
+      {% endcase %}
+    {% when false -%}
+      {% assign addToCartDisable = true %}
+  {% endcase %}
+{% endif %}
+{% unless addToCartDisable %}
+  <input type="submit" id="add" value="{{ addToCartCTA }}">
+{% endunless %}
+```
+
 ##### Product Estimated Shipping Ranges
 
 The following snippet, when included on a Product page or within a Product loop, will set Liquid variables for rendering or performing logic on estimated shipping dates and order cut-off deadlines.
-
 
 Variables set up:
 
@@ -123,6 +146,21 @@ A Product's Workshop Project data, including its current phase (e.g. 'crowd-sour
 ```
 
 In the above we pre-assign the value as ‘retail’ and then re-assign it if Workshop data is present. The hidden field will then pass the phase through the cart and checkout as a [Line Item Property.](https://help.shopify.com/en/themes/customization/products/features/get-customization-information-for-products) (In the above the property is made invisible to the customer in checkout by the leading underscore, you can simply remove that to make it visible.) __Note:__ that this hidden field may or may not be enough to work with an AJAX add-to-cart function, depending on the particulars of your theme.
+
+__Accessing Line Item Properties:__
+
+This is core SHopify functionality but a little esoteric, so here is some code to access the LIP created above e.g. in the Cart or in Email templates:
+
+```
+{% assign wsPhaseLIP = 'retail' %}
+{% assign LIPs = line.properties %}
+{% assign LIPCount = LIPs | size %}
+{% if LIPCount > 0 and LIPs['_Phase'] %}
+  {% assign wsPhaseLIP = LIPs['_Phase'] %}
+{% endif %}
+```
+
+For further information on customizing notification emails see the [admin/emails readme](https://github.com/taylorstitch/workshop-docs/admin/emails)
 
 ### 4. Custom Collections Install
 
