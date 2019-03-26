@@ -126,9 +126,9 @@ A Product's Workshop Project data, including its current phase (e.g. 'crowd-sour
 
 In the above we pre-assign the value as ‘retail’ and then re-assign it if Workshop data is present. The hidden field will then pass the phase through the cart and checkout as a [Line Item Property.](https://help.shopify.com/en/themes/customization/products/features/get-customization-information-for-products) (In the above the property is made invisible to the customer in checkout by the leading underscore, you can simply remove that to make it visible.) __Note:__ that this hidden field may or may not be enough to work with an AJAX add-to-cart function, depending on the particulars of your theme.
 
-__Accessing Line Item Properties:__
+##### Accessing Line Item Properties:
 
-This is core SHopify functionality but a little esoteric, so here is some code to access the LIP created above e.g. in the Cart or in Email templates:
+Although this is core Shopify functionality, accessing the property values is a little esoteric, so here is some code to get value of the LIP created above e.g. in the Cart or in Email templates:
 
 ```
 {% assign wsPhaseLIP = 'retail' %}
