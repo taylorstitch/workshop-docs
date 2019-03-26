@@ -160,7 +160,7 @@ This is core SHopify functionality but a little esoteric, so here is some code t
 {% endif %}
 ```
 
-For further information on customizing notification emails see the [admin/emails readme](https://github.com/taylorstitch/workshop-docs/admin/emails)
+For further information on customizing notification emails see the [admin/emails readme](https://github.com/taylorstitch/workshop-docs/tree/master/admin/emails)
 
 ### 4. Custom Collections Install
 
