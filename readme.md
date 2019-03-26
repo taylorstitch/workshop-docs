@@ -71,27 +71,6 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
 {{ product_template }}
 ```
 
-#### 3.3 Other Theme Elements
-
-##### Product Meta Data
-
-The following snippet, when included on a Product page or within a Product loop, will set Liquid variables for rendering or performing logic on:
-
-``` twig
-{% include 'tsio-workshop-data-product', wsProduct: product %}
-```
-
-Variables set up:
-
-* `wsPhase` string where possible values are `crowd-sourced`, `pre-order`, `in-production`, `retail`
-* `wsActive` boolean; true when Product phase is `crowd-sourced` or `pre-order`
-* `wsStarts` date; of Workshop Project start
-* `wsEnds` date; of Workshop Project end
-* `wsTarget` number; representing sales target  
-* `wsSales` number; representing current sales
-* `wsProgress` number; percentage (without `%`) of wsSales/wsTarget
-* `wsShipDates` array; of (max 3) potential ship dates
-
 ##### Product Add-To-Cart Disable
 
 ``` twig
@@ -161,6 +140,27 @@ This is core SHopify functionality but a little esoteric, so here is some code t
 ```
 
 For further information on customizing notification emails see the [admin/emails readme](https://github.com/taylorstitch/workshop-docs/tree/master/admin/emails)
+
+#### 3.3 Other Theme Elements
+
+##### Product Meta Data
+
+The following snippet, when included on a Product page or within a Product loop, will set Liquid variables for rendering or performing logic on:
+
+``` twig
+{% include 'tsio-workshop-data-product', wsProduct: product %}
+```
+
+Variables set up:
+
+* `wsPhase` string where possible values are `crowd-sourced`, `pre-order`, `in-production`, `retail`
+* `wsActive` boolean; true when Product phase is `crowd-sourced` or `pre-order`
+* `wsStarts` date; of Workshop Project start
+* `wsEnds` date; of Workshop Project end
+* `wsTarget` number; representing sales target  
+* `wsSales` number; representing current sales
+* `wsProgress` number; percentage (without `%`) of wsSales/wsTarget
+* `wsShipDates` array; of (max 3) potential ship dates
 
 ### 4. Custom Collections Install
 
