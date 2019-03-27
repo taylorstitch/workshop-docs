@@ -3,22 +3,54 @@
     "name": "Workshop Progress",
     "settings": [
       {
-        "id": "ws_bar_color_progress",
-        "type": "color",
-        "label": "Bar Color",
-        "default": "#3c3c3c"
+        "id": "ws_bar_height",
+        "type": "text",
+        "label": "Bar Height",
+        "default": "14px"
       },
       {
-        "id": "ws_bar_color_bg",
-        "type": "color",
-        "label": "Bar Background",
-        "default": "#fafafa"
+        "id": "ws_bar_border_width",
+        "type": "text",
+        "label": "Bar Border Width",
+        "default": "0"
       },
       {
         "id": "ws_bar_border_radius",
         "type": "text",
         "label": "Bar Border Radius",
-        "default": "3px"
+        "default": "0"
+      },
+      {
+        "id": "ws_bar_border_color",
+        "type": "color",
+        "label": "Bar Border Color",
+        "default": "#fafafa"
+      },
+      {
+        "id": "ws_bar_color_bg",
+        "type": "color",
+        "label": "Bar Background",
+        "default": "#f2f2f2"
+      },
+      {
+        "id": "ws_bar_color_progress",
+        "type": "color",
+        "label": "Bar Color",
+        "default": "#0f2130"
+      },
+      {
+        "id": "ws_progress_font_size",
+        "type": "text",
+        "label": "Progress Font Size",
+        "default": "100%",
+        "info": "Can be %, px, or (r)em"
+      },
+      {
+        "id": "ws_ship_date_font_size",
+        "type": "text",
+        "label": "Ship Date Font Size",
+        "default": "100%",
+        "info": "Can be %, px, or (r)em"
       }
     ]
   }
@@ -39,16 +71,24 @@
     </ul>
   </section>
   <style>
+    {%- assign wsBarHeight = section.settings.ws_bar_height -%}
     {%- assign wsBarColor = section.settings.ws_bar_color_progress -%}
     {%- assign wsBarColorBg = section.settings.ws_bar_color_bg -%}
+    {%- assign wsBarBorderWidth = section.settings.ws_bar_border_width -%}
+    {%- assign wsBarBorderColor = section.settings.ws_bar_border_color -%}
     {%- assign wsBarBorderRadius = section.settings.ws_bar_border_radius -%}
+    {%- assign wsProgressFontSize = section.settings.ws_progress_font_size -%}
+    {%- assign wsShipDateFontSize = section.settings.ws_ship_date_font_size -%}
+    .ws-data ul{ font-size: {{ wsProgressFontSize }};}
     .ws-data ul:before,
     .ws-data ul:after{
-      border-color: {{ wsBarColor }};
+      height: {{ wsBarHeight }};
+      border: {{ wsBarBorderWidth }} solid {{ wsBarBorderColor }};
       border-radius: {{ wsBarBorderRadius }};
     }
     .ws-data ul:before{ background: {{ wsBarColorBg }};}
     .ws-data ul:after{ background: {{ wsBarColor }};}
+    .ws-estimated-ship-date { font-size: {{ wsShipDateFontSize }};}
   </style>
 {%- endif -%}
 
@@ -58,8 +98,6 @@
 {% stylesheet 'scss' %}
   @mixin keyframes($animationName){
     @-webkit-keyframes $animationName { @content;}
-    @-moz-keyframes $animationName { @content;}
-    @-o-keyframes $animationName { @content;}
     @keyframes $animationName { @content;}
   }
 
@@ -94,23 +132,21 @@
         z-index: 1;
         top: 0;
         left: 0;
-        width: 100%;
         height: 1rem;
         border: 1px solid;
       }
+      &:before{ width: 100%;}
       &:after{
         z-index: 2;
         animation-name: progress-100;
         animation-delay: 1s;
         animation-duration: 0.7s;
         animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
       }
 
       @for $i from 0 through 100 {
-        &[data-ws-progress="#{$i}%"]:after{
-          width: percentage($i / 100);
-          animation-name: progress-#{$i};
-        }
+        &[data-ws-progress="#{$i}%"]:after{ animation-name: progress-#{$i};}
       }
     }
   }

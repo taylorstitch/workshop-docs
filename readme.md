@@ -71,7 +71,12 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
 {{ product_template }}
 ```
 
-##### Product Add-To-Cart Disable
+##### Product Add-To-Cart Disable & CTA Modification
+
+The code below does two things to the `input[type="submit"]#add` when the Product is part of a Workshop Project:
+
+1. When Project is Active, the CTA is modified from e.g. "Add to Cart" to "Fund Now"
+2. When Project is not actively being funded the button is hidden altogether.  
 
 ``` twig
 {% assign addToCartDisable = false %}
@@ -82,9 +87,9 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
     {% when true -%}
       {% case wsPhase %}
         {% when 'crowd-sourced' -%}
-          {% assign addToCartCTA = 'Fund Now' %}
+          {% assign addToCartCTA = 'tsio.workshop.ui_active_cta' | t %}
         {% when 'pre-order' -%}
-          {% assign addToCartCTA = 'Pre-Order' %}
+          {% assign addToCartCTA = 'tsio.workshop.ui_active_preorder_cta' | t %}
       {% endcase %}
     {% when false -%}
       {% assign addToCartDisable = true %}
@@ -162,6 +167,21 @@ Variables set up:
 * `wsProgress` number; percentage (without `%`) of wsSales/wsTarget
 * `wsShipDates` array; of (max 3) potential ship dates
 
+##### Hiding Workshop Projects From "Regular" Collections
+
+Within a Collection loop, the logic below hides the `product-grid-item` include for all Workshop Projects until their phase is marked as "retail":
+
+``` twig
+{% assign wsProductHide = false %}
+{% include 'tsio-workshop-data-product', wsProduct: product %}
+{% if wsPhase and wsPhase != 'retail' %}
+  {% assign wsProductHide = true %}
+{% endif -%}
+{% unless wsProductHide %}
+  {% include 'product-grid-item' %}
+{% endunless %}
+```
+
 ### 4. Custom Collections Install
 
 The app maintains three Custom Collections within your store:
@@ -178,10 +198,5 @@ __TBC__
 
 __Pending Updates:__
 
-* [x] Conversion of Project end date to animated countdown.
-* [x] Inclusion of estimated delivery date(s) within admin
-* [x] Inclusion of estimated delivery date(s) on front-end
-* [x] Inclusion of order cut off date(s) when multiple ship dates, within admin
-* [x] Inclusion of order cut off date(s) when multiple ship dates, on front-end
-* [x] Regular Collection template snippet includes.
-* [ ] Landing Page template.
+* [ ] Landing Page template,
+* [ ] Activate Pre-Order directly (without prior Workshop).
