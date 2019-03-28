@@ -194,6 +194,8 @@ The app maintains three Custom Collections within your store:
 
 __TBC__
 
+<img src="https://cdn.shopify.com/s/files/1/0070/1922/files/mockup-workshop-collection.jpg?27470" style="max-width:100%" alt="Adobe XD Mockups for upcoming page">
+
 <hr>
 
 __Pending Updates:__
