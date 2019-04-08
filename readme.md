@@ -194,7 +194,7 @@ The app maintains three Custom Collections within your store:
 
 __TBC__
 
-<img src="https://cdn.shopify.com/s/files/1/0070/1922/files/mockup-workshop-collection.jpg?27470" style="max-width:100%" alt="Adobe XD Mockups for upcoming page">
+[<img src="https://cdn.shopify.com/s/files/1/0070/1922/files/mockup-workshop-collection.jpg?27470" style="max-width:100%" alt="Adobe XD Mockups for upcoming page">](https://www.dropbox.com/s/j2ta5q39xz7t9sl/taylorstitch_workshop_overview_01.xd?dl=0)
 
 <hr>
 
