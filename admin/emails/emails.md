@@ -1,8 +1,8 @@
-## Customizing The Order Confirmation Email
+# Customizing The Order Confirmation Email
 
-The purpose of the Liquid below is to help ID different phases of Products within the line_items loop, so that they can be treated differently. (Note that we also separate out Gift Cards. This may or may not be applicable / useful to your shop.)
+The purpose of the Liquid below is to help ID different phases of Products within the line\_items loop, so that they can be treated differently. \(Note that we also separate out Gift Cards. This may or may not be applicable / useful to your shop.\)
 
-``` twig
+```text
 {% comment %}
   Identify and items that are crowd-funding workshop, pre-order, and items that are in-stock (inc. Gift Cards separately)
   i.e. line.properties['_Phase'] = 'crowd-sourced' or 'retail'
@@ -28,7 +28,7 @@ The purpose of the Liquid below is to help ID different phases of Products withi
     {% assign isGiftCardProduct = true %}
     {% assign hasGiftCardProducts = true %}
   {% else %}
-  
+
     {% assign LIPs = line.properties %}
     {% assign LIPCount = LIPs | size %}
     {% if LIPCount > 0 %}
@@ -86,3 +86,4 @@ The purpose of the Liquid below is to help ID different phases of Products withi
   </p>
 {% endcomment %}
 ```
+
