@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Getting Started](README.md)
-* [Code Repository]
+* Code Repository
   * [Theme](theme/README.md)
     * [locales](theme/locales/README.md)
     * [sections](theme/sections/README.md)
