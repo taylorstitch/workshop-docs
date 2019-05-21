@@ -1,14 +1,14 @@
 # Product Section
 
 {% hint style="info" %}
-  [/theme/locales/en.default.json](https://github.com/taylorstitch/workshop-docs/blob/master/theme/locales/en.default.json)
-
-  __ Usage:__
-
-  ```text
-  {% section 'tsio-workshop-product' %}
-  ```
+  **Code:** [/theme/locales/en.default.json](https://github.com/taylorstitch/workshop-docs/blob/master/theme/locales/en.default.json)
 {% endhint %}
+
+__ Usage:__
+
+```text
+{% section 'tsio-workshop-product' %}
+```
 
 The purpose of this snippet is to display goal progress, a remaining time countdown and estimated ship dates.
 
