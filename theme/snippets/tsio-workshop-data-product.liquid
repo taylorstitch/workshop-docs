@@ -17,15 +17,20 @@
   {%- assign wsSales = wsData['num_sold'] -%}
   {%- assign wsProgress = wsSales | times: 100 | divided_by: wsTarget | round -%}
   {%- assign wsShipDates = wsData['ship_dates'] -%}
+  {%- assign wsMsrp = wsData['msrp'] -%}
+  {%- assign wsImages = wsData['images'] -%}
   {%- comment -%}
     This can be used to print data to your dev console
+    <script>
+      console.log('Workshop Product Data:');
+      console.dir({{ wsData | json }});
+    </script>
   {%- endcomment -%}
-  <script>
-    console.log('Workshop Product Data:');
-    console.dir({{ wsData | json }});
-  </script>
 {%- else -%}
-  <script>
-    console.log('Product Not in Workshop');
-  </script>
+  {%- comment -%}
+    This can be used to print data to your dev console
+    <script>
+      console.log('Product Not in Workshop');
+    </script>
+  {%- endcomment -%}
 {%- endif -%}

@@ -9,6 +9,7 @@
 {%- assign wsOrderDeadlines = wsData['cutoff_dates'] | split: ',' -%}
 {%- assign wsOrderDeadlinesCount = wsOrderDeadlines | size -%}
 {%- if wsShipDatesCount > 0 -%}
+  {%- assign hasShipDate1 = true -%}
   {%- assign unixDate1 = wsShipDates[0] | replace: '/', '-' | date: '%s' -%}
   {%- assign daysToAdd = 20 | times: 24 | times: 60 | times: 60 -%}
   {%- capture estShipRange1 -%}
