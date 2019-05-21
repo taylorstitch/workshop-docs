@@ -32,4 +32,4 @@ The app maintains three Custom Collections within your store:
 
 ### Landing Page Install
 
-If the Custom Collections mentioned above have not been assigned the `collection.tsio-workshop` template then you should do that :smile: 
+If the Custom Collections mentioned above have not been assigned the `collection.tsio-workshop` template then you should do that :)  
