@@ -8,7 +8,7 @@
   ```text
   {% section 'tsio-workshop-overview' %}
   ```
-{% hint %}
+{% endhint %}
 
 The purpose of this snippet is to generate a Collection landing page.
 
@@ -19,4 +19,4 @@ The purpose of this snippet is to generate a Collection landing page.
   * [/theme/snippets/tsio-workshop-format-thousands.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-format-thousands.liquid)  
   * [/theme/snippets/tsio-workshop-product-grid-item-panel.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-product-grid-item-panel.liquid)  
   * [/theme/snippets/tsio-workshop-responsive-image.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-responsive-image.liquid)  
-{% hint %}
+{% endhint %}

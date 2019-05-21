@@ -8,7 +8,7 @@
   ```text
   {% section 'tsio-workshop-product' %}
   ```
-{% hint %}
+{% endhint %}
 
 The purpose of this snippet is to display goal progress, a remaining time countdown and estimated ship dates.
 
