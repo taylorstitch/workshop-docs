@@ -10,19 +10,19 @@ We are not yet public and so not listed in the Shopify App Store officially, alt
 https://tsio-workshop.herokuapp.com/?shop={{ store }}.myshopify.com
 ```
 
-__Webhook Install__
+### Webhook Install
 
 The application installs and receives `order.paid` and `order.refund` webhooks from your store so that it can track sales over time and progress towards your goals, in realtime.
 
-__App Assets Install__
+### App Assets Install
 
-The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates.
+The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates. See [Theme](theme/README.md).
 
 {% hint style="info" %}
   **It will not publish these to your theme's front-end**, it simply adds the code snippets and makes them available to the the admin and theme files so that you can use the Liquid documented here to add related elements in any places you deem appropriate.
 {% endhint %}
 
-__Custom Collections Install__
+### Custom Collections Install
 
 The app maintains three Custom Collections within your store:
 
@@ -30,14 +30,6 @@ The app maintains three Custom Collections within your store:
 2. **Workshop Projects: Active Pre-Orders**  can be accessed by handle `workshop-projects-active-pre-orders`
 3. **Workshop Projects: In-Production** can be accessed by handle `workshop-projects-in-production`
 
-__Landing Page Install__
+### Landing Page Install
 
-**TBC**
-
-[![Adobe XD Mockups for upcoming page](https://cdn.shopify.com/s/files/1/0070/1922/files/mockup-workshop-collection.jpg?27470)](https://www.dropbox.com/s/j2ta5q39xz7t9sl/taylorstitch_workshop_overview_01.xd?dl=0)
-
-__Pending Updates:__
-
-* [ ] Landing Page template,
-* [ ] Activate Pre-Order directly \(without prior Workshop\).
-
+If the Custom Collections mentioned above have not been assigned the `collection.tsio-workshop` template then you should do that :smile: 
