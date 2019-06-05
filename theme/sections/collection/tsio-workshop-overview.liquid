@@ -15,8 +15,13 @@
       },
       {
         "type": "image_picker",
-        "id": "ws_banner",
-        "label": "Banner image"
+        "id": "ws_banner_mobile",
+        "label": "Mobile Banner image"
+      },
+      {
+        "type": "image_picker",
+        "id": "ws_banner_desktop",
+        "label": "Desktop Banner image"
       },
       {
         "type": "text",
@@ -777,7 +782,7 @@
         <img src="https://placehold.it/320x568.jpg" />
       </picture>
     {%- else -%}
-      <img src="{{ section.settings.ws_banner | img_url: 'master' }}" />
+      {%- include 'tsio-workshop-responsive-image', imgSmall: section.settings.ws_banner_mobile, imgLarge: section.settings.ws_banner_desktop -%}
     {%- endif -%}
     <figcaption>
       <h1 class="ws-hero-heading"><span>{{ section.settings.ws_banner_heading }}</span></h1>
