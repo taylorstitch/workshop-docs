@@ -187,6 +187,11 @@
   @mixin for-desktop-up{ @media (min-width: $break-desktop-up){ @content;}}
   @mixin for-big-desktop-up { @media (min-width: $break-big-desktop-up){ @content;}}
 
+  .hidden{
+    display: none;
+    visibility: hidden;
+  }
+
   /* Hero Banner */
 
   .ws-hero{
@@ -789,21 +794,23 @@
       <p class="ws-hero-intro">{{ section.settings.ws_banner_text }}</p>
     </figcaption>
   </figure>
-  <aside class="ws-stats">
-    {%- include 'tsio-workshop-data-shop' -%}
-    <p>
-      <span class="ws-stat h2">${%- include 'tsio-workshop-format-thousands' with wsSavings -%}</span>
-      <span class="ws-label">{{ 'tsio.workshop.highlight_customer_savings' | t }}</span>
-    </p>
-    <p>
-      <span class="ws-stat h2">{%- include 'tsio-workshop-format-thousands' with wsMembers -%}</span>
-      <span class="ws-label">{{ 'tsio.workshop.highlight_members_count' | t }}</span>
-    </p>
-    <p>
-      <span class="ws-stat h2">{{ wsProjects }}</span>
-      <span class="ws-label">{{ 'tsio.workshop.highlight_projects_launched' | t }}</span>
-    </p>
-  </aside>
+  {%- include 'tsio-workshop-data-shop' -%}
+  {%- if wsProjects > 0 -%}
+    <aside class="ws-stats">
+      <p>
+        <span class="ws-stat h2">${%- include 'tsio-workshop-format-thousands' with wsSavings -%}</span>
+        <span class="ws-label">{{ 'tsio.workshop.highlight_customer_savings' | t }}</span>
+      </p>
+      <p>
+        <span class="ws-stat h2">{%- include 'tsio-workshop-format-thousands' with wsMembers -%}</span>
+        <span class="ws-label">{{ 'tsio.workshop.highlight_members_count' | t }}</span>
+      </p>
+      <p>
+        <span class="ws-stat h2">{{ wsProjects }}</span>
+        <span class="ws-label">{{ 'tsio.workshop.highlight_projects_launched' | t }}</span>
+      </p>
+    </aside>
+  {%- endif -%}
   <nav>
     <ul class="ws-inline-menu">
       {%- unless activeProjects == '' -%}
