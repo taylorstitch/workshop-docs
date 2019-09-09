@@ -1,7 +1,7 @@
 {%- assign imgSizeLoRes = '414x' -%}{%- comment -%} break_iphone_plus_up {%- endcomment -%}
 {%- assign imgSizeIphonePlusUp = '800x' -%}{%- comment -%} break_tablet_portrait_up {%- endcomment -%}
-{%- assign imgSizeTabletPortraitUp '960x' -%}{%- comment -%} break_tablet_landscape_up {%- endcomment -%}
-{%- assign imgSizeTabletLandscapeUp '1180x' -%}{%- comment -%} break_desktop_up {%- endcomment -%}
+{%- assign imgSizeTabletPortraitUp = '960x' -%}{%- comment -%} break_tablet_landscape_up {%- endcomment -%}
+{%- assign imgSizeTabletLandscapeUp = '1180x' -%}{%- comment -%} break_desktop_up {%- endcomment -%}
 {%- assign imgSizeDesktopUp = '1440x' -%}{%- comment -%} break_big_desktop_up {%- endcomment -%}
 {%- assign imgSizeBigDesktopUp = 'master' -%}
 
@@ -65,7 +65,7 @@
     {{ imgIphonePlusUp }} {{ imgSizeIphonePlusUp | replace: 'x', 'w' }},
     {{ imgTabletPortraitUp }} {{ imgSizeTabletPortraitUp | replace: 'x', 'w' }},
     {{ imgTabletLandscapeUp }} {{ imgSizeTabletLandscapeUp | replace: 'x', 'w' }},
-    {{ imgDesktopUp }}{% endif %} {{ imgSizeDesktopUp | replace: 'x', 'w' }},
+    {{ imgDesktopUp }} {{ imgSizeDesktopUp | replace: 'x', 'w' }},
     {{ imgBigDesktopUp }} 1980w"
   data-sizes="auto"
 />
