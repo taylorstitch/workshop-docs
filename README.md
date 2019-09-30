@@ -16,7 +16,7 @@ The application installs and receives `order.paid` and `order.refund` webhooks f
 
 ### App Assets Install
 
-The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates. See [Theme](../theme/README.md).
+The application will add various code snippets to your store's primary theme, for inclusion on Product & Collection templates. See [Theme](../code-repository/theme/).
 
 {% hint style="info" %}
   **It will not publish these to your theme's front-end**, it simply adds the code snippets and makes them available to the the admin and theme files so that you can use the Liquid documented here to add related elements in any places you deem appropriate.
