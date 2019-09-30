@@ -1,4 +1,4 @@
-# Other Theme Elements
+# snippets
 
 **Product Meta Data**
 
@@ -33,3 +33,4 @@ Within a Collection loop, the logic below hides the `product-grid-item` include 
   {% include 'product-grid-item' %}
 {% endunless %}
 ```
+

@@ -1,13 +1,14 @@
 # Table of contents
 
 * [Getting Started](README.md)
-* Code Repository
-  * [Theme](theme/README.md)
-    * [locales](theme/locales/README.md)
-    * sections
-      * [collection](theme/sections/collection/README.md)
-      * [product](theme/sections/product/README.md)
-    * [snippets](theme/snippets/README.md)
-  * [Admin](admin/README.md)
-    * [emails](admin/emails/README.md)
-      * [Customizing The Order Confirmation Email](admin/emails/emails.md)
+* [Code Repository](code-repository/README.md)
+  * [Theme](code-repository/theme/README.md)
+    * [locales](code-repository/theme/locales.md)
+    * [sections](code-repository/theme/sections/README.md)
+      * [collection](code-repository/theme/sections/collection.md)
+      * [product](code-repository/theme/sections/product.md)
+    * [snippets](code-repository/theme/snippets.md)
+  * [Admin](code-repository/admin/README.md)
+    * [emails](code-repository/admin/emails/README.md)
+      * [Customizing The Order Confirmation Email](code-repository/admin/emails/emails.md)
+

@@ -1,10 +1,10 @@
-# Product Section
+# product
 
 {% hint style="info" %}
-  **Code:** [/theme/locales/en.default.json](https://github.com/taylorstitch/workshop-docs/blob/master/theme/locales/en.default.json)
+**Code:** [/theme/locales/en.default.json](https://github.com/taylorstitch/workshop-docs/blob/master/theme/locales/en.default.json)
 {% endhint %}
 
-__ Usage:__
+ **Usage:**
 
 ```text
 {% section 'tsio-workshop-product' %}
