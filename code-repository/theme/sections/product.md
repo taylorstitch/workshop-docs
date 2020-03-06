@@ -91,7 +91,7 @@ Variables set up:
 * `wsShipDatesCount` number; of ship dates entered \(max 3\)
 * `wsOrderDeadlinesCount` number; of order cut-off dates entered \(max 2\)
 * `wsShipDates` array; of ship dates
-* `wsOrderDeadlines` array; of ship dates
+* `wsOrderDeadlines` array; of order cut-off dates
 * `estShipRange1` thru `estShipRange3` string\(s\); calculated and formatted range, extending two weeks from the dates specified
 * `estShipRangeTotal` string; calculated and formatted range, from the first date specified and extending two weeks beyond the final date  
 * `cutOffDate1` thru `cutOffDate2` string\(s\); formatted dates  
