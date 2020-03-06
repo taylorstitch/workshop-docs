@@ -4,10 +4,27 @@
     Usage:
     {%- include 'tsio-workshop-data-product', wsProduct: product -%}
 {%- endcomment -%}
+{%- assign wsPhase = 'retail' -%}
+{%- assign wsActive = false -%}
+{%- assign wsStarts = '' -%}
+{%- assign wsEnds = '' -%}
+{%- assign wsTarget = 0 -%}
+{%- assign wsSales = 0 -%}
+{%- assign wsProgress = 0 -%}
+{%- assign wsShipDates = '' -%}
+{%- assign wsMsrp = nil -%}
+{%- assign wsImages = '' -%}
 {%- assign wsData = wsProduct.metafields['tsio-workshop']['data'] -%}
 {%- if wsData -%}
   {%- comment -%}
     Here we assign the data to some Liquid Variables
+  {%- endcomment -%}
+  {%- comment -%}
+    This can be used to print data to your dev console
+    <script>
+      console.log('Workshop Product Data: {{ wsProduct.title }}');
+      console.dir({{ wsData | json }});
+    </script>
   {%- endcomment -%}
   {%- assign wsPhase = wsData['phase'] -%}
   {%- assign wsActive = wsData['active'] -%}
@@ -19,13 +36,13 @@
   {%- assign wsShipDates = wsData['ship_dates'] -%}
   {%- assign wsMsrp = wsData['msrp'] -%}
   {%- assign wsImages = wsData['images'] -%}
-  {%- comment -%}
-    This can be used to print data to your dev console
-    <script>
-      console.log('Workshop Product Data:');
-      console.dir({{ wsData | json }});
-    </script>
-  {%- endcomment -%}
+  {%- if wsPhase == 'pre-order' -%}
+    {%- assign wsPreOrderTarget = wsData['preorder_threshold'] -%}
+    {%- assign wsPreOrderSales = wsData['preorder_num_sold'] -%}
+    {%- assign wsPreOrderRemaining = wsPreOrderTarget | minus: wsPreOrderSales -%}
+    {%- assign wsPreOrderProgress = wsPreOrderRemaining | times: 100 | divided_by: wsPreOrderTarget | round -%}
+  {%- endif -%}
+  {%- include 'tsio-workshop-data-pool' -%}
 {%- else -%}
   {%- comment -%}
     This can be used to print data to your dev console
