@@ -51,6 +51,12 @@
         "label": "Ship Date Font Size",
         "default": "100%",
         "info": "Can be %, px, or (r)em"
+      },
+      {
+        "id": "ws_ship_date_border_color",
+        "type": "color",
+        "label": "Ship Date Border Color",
+        "default": "#666"
       }
     ]
   }
@@ -70,15 +76,16 @@
       <li class="ws-progress">{{ wsProgress }}% Funded</li>
     </ul>
   </section>
-  <style>
+  <style type="text/css">
     {%- assign wsBarHeight = section.settings.ws_bar_height -%}
-    {%- assign wsBarColor = section.settings.ws_bar_color_progress -%}
-    {%- assign wsBarColorBg = section.settings.ws_bar_color_bg -%}
     {%- assign wsBarBorderWidth = section.settings.ws_bar_border_width -%}
-    {%- assign wsBarBorderColor = section.settings.ws_bar_border_color -%}
     {%- assign wsBarBorderRadius = section.settings.ws_bar_border_radius -%}
+    {%- assign wsBarBorderColor = section.settings.ws_bar_border_color -%}
+    {%- assign wsBarColorBg = section.settings.ws_bar_color_bg -%}
+    {%- assign wsBarColor = section.settings.ws_bar_color_progress -%}
     {%- assign wsProgressFontSize = section.settings.ws_progress_font_size -%}
     {%- assign wsShipDateFontSize = section.settings.ws_ship_date_font_size -%}
+    {%- assign wsShipDateBorderColor = section.settings.ws_ship_date_border_color -%}
     .ws-data ul{ font-size: {{ wsProgressFontSize }};}
     .ws-data ul:before,
     .ws-data ul:after{
@@ -88,7 +95,10 @@
     }
     .ws-data ul:before{ background: {{ wsBarColorBg }};}
     .ws-data ul:after{ background: {{ wsBarColor }};}
-    .ws-estimated-ship-date { font-size: {{ wsShipDateFontSize }};}
+    .ws-estimated-ship-date {
+      font-size: {{ wsShipDateFontSize }};
+      border-color: {{ wsShipDateBorderColor }};
+    }
   </style>
 {%- endif -%}
 
@@ -107,6 +117,8 @@
       to { width: percentage($i / 100);}
     }
   }
+
+  #shopify-section-tsio-workshop-product{ margin: 0;}
 
   .ws-data{
     ul, li{
@@ -133,7 +145,8 @@
         top: 0;
         left: 0;
         height: 1rem;
-        border: 1px solid;
+        border-width: 1px;
+        border-style: solid;
       }
       &:before{ width: 100%;}
       &:after{
@@ -150,11 +163,11 @@
       }
     }
   }
-
   .ws-estimated-ship-date {
     margin: 1em auto 1.5em;
     padding: 1.25em;
-    border: 3px solid;
+    border-width: 3px;
+    border-style: solid;
     text-align: center;
 
     p{ margin: 0;}
@@ -178,14 +191,19 @@
         position: relative;
         z-index: 2;
         padding: 0 1em;
+        background: #fff; // assuming that is the parent element / page bg color
       }
     }
 
     &.ws-multiple-ship-dates{ padding: 2em 1.25em;}
   }
-
 {% endstylesheet %}
-
+<script>
+  var tsio_workshop_app_tz = null;
+  {%- if shop.metafields.tsio-workshop.iana_timezone -%}
+      tsio_workshop_app_tz = '{{ shop.metafields.tsio-workshop.iana_timezone }}';
+  {%- endif %}
+</script>
 {% javascript %}
   (function(){
     var countDownsAvailable = document.querySelectorAll('.ws-countdown');
@@ -206,9 +224,11 @@
 
       $(function(){
         $('.ws-period time').each(function(){
-            $(this).tsioCountdown($(this).attr('datetime') + ' 23:59:59', function(event) {
-              $(this).html(event.strftime('%-Dd %Hh %Mm %Ss'));
-            });
+          var dateString = $(this).attr('datetime') + ' 23:59:59';
+          var dateObj = tsio_workshop_app_tz ? new Date(dateString).toLocaleString("en-US", { timeZone: tsio_workshop_app_tz}) : dateString;
+          $(this).tsioCountdown(dateObj, function(event) {
+            $(this).html(event.strftime('%-Dd %Hh %Mm %Ss'));
+          });
         });
       });
     };
