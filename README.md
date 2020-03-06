@@ -34,3 +34,6 @@ The app maintains three Custom Collections within your store:
 
 If the Custom Collections mentioned above have not been assigned the `collection.tsio-workshop` template then you should do that :\)
 
+# Recent Updates
+
+It is now possible to "pool" projects across Shopify stores, for collaborations or if you have multiple instances (for wholesale or physical stores etc.) 
