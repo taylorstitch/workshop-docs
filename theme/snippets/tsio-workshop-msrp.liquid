@@ -1,0 +1,12 @@
+{%- assign compare_at_price = product.compare_at_price | money | remove: '.00' -%}
+{%- comment -%}
+  NOTE: This was used to reset this value when used in a collection loop
+        I don't think needed anymore
+
+        {%- assign wsMsrp = false -%}
+{%- endcomment -%}
+{%- assign wsMsrp = product.metafields['tsio-workshop']['data']['msrp'] -%}
+{%- if wsMsrp and wsMsrp != empty -%}
+  {%- assign compare_at_price = wsMsrp | remove: '.00' | prepend: '$' -%}
+{%- endif -%}
+{{- compare_at_price -}}

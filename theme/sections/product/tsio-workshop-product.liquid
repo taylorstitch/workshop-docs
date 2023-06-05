@@ -62,48 +62,52 @@
   }
 {% endschema %}
 {%- assign wsData = product.metafields['tsio-workshop']['data'] -%}
-{%- if wsData['phase'] == 'crowd-sourced' -%}
-  {%- assign wsEnds = wsData['ends_at'] -%}
-  {%- assign wsTarget = wsData['threshold'] -%}
-  {%- assign wsSales = wsData['num_sold'] -%}
-  {%- assign wsProgress = wsSales | times: 100 | divided_by: wsTarget | round -%}
-  <section class="ws-data">
-    <ul data-ws-progress="{{ wsProgress }}%">
-      <li class="ws-period">
-        <span>Workshop ends:</span>
-        <time class="ws-countdown" datetime="{{ wsEnds }}">{{ wsEnds }}</time>
-      </li>
-      <li class="ws-progress">{{ wsProgress }}% Funded</li>
-    </ul>
-  </section>
-  <style type="text/css">
-    {%- assign wsBarHeight = section.settings.ws_bar_height -%}
-    {%- assign wsBarBorderWidth = section.settings.ws_bar_border_width -%}
-    {%- assign wsBarBorderRadius = section.settings.ws_bar_border_radius -%}
-    {%- assign wsBarBorderColor = section.settings.ws_bar_border_color -%}
-    {%- assign wsBarColorBg = section.settings.ws_bar_color_bg -%}
-    {%- assign wsBarColor = section.settings.ws_bar_color_progress -%}
-    {%- assign wsProgressFontSize = section.settings.ws_progress_font_size -%}
-    {%- assign wsShipDateFontSize = section.settings.ws_ship_date_font_size -%}
-    {%- assign wsShipDateBorderColor = section.settings.ws_ship_date_border_color -%}
-    .ws-data ul{ font-size: {{ wsProgressFontSize }};}
-    .ws-data ul:before,
-    .ws-data ul:after{
-      height: {{ wsBarHeight }};
-      border: {{ wsBarBorderWidth }} solid {{ wsBarBorderColor }};
-      border-radius: {{ wsBarBorderRadius }};
-    }
-    .ws-data ul:before{ background: {{ wsBarColorBg }};}
-    .ws-data ul:after{ background: {{ wsBarColor }};}
-    .ws-estimated-ship-date {
-      font-size: {{ wsShipDateFontSize }};
-      border-color: {{ wsShipDateBorderColor }};
-    }
-  </style>
-{%- endif -%}
+{%- if wsData -%}
+  {%- if wsData['phase'] == 'crowd-sourced' -%}
+    {%- assign wsEnds = wsData['ends_at'] -%}
+    {%- assign wsTarget = wsData['threshold'] -%}
+    {%- assign wsSales = wsData['num_sold'] -%}
+    {%- assign wsProgress = wsSales | times: 100 | divided_by: wsTarget | round -%}
+    <section class="ws-data">
+      <ul data-ws-progress="{{ wsProgress }}%">
+        <li class="ws-period">
+          <span>Workshop ends:</span>
+          <time class="ws-countdown" datetime="{{ wsEnds }}">{{ wsEnds }}</time>
+        </li>
+        <li class="ws-progress">{{ wsProgress }}% Funded</li>
+      </ul>
+    </section>
+    <style type="text/css">
+      {%- assign wsBarHeight = section.settings.ws_bar_height -%}
+      {%- assign wsBarBorderWidth = section.settings.ws_bar_border_width -%}
+      {%- assign wsBarBorderRadius = section.settings.ws_bar_border_radius -%}
+      {%- assign wsBarBorderColor = section.settings.ws_bar_border_color -%}
+      {%- assign wsBarColorBg = section.settings.ws_bar_color_bg -%}
+      {%- assign wsBarColor = section.settings.ws_bar_color_progress -%}
+      {%- assign wsProgressFontSize = section.settings.ws_progress_font_size -%}
+      {%- assign wsShipDateFontSize = section.settings.ws_ship_date_font_size -%}
+      {%- assign wsShipDateBorderColor = section.settings.ws_ship_date_border_color -%}
+      .ws-data ul{ font-size: {{ wsProgressFontSize }};}
+      .ws-data ul:before,
+      .ws-data ul:after{
+        height: {{ wsBarHeight }};
+        border: {{ wsBarBorderWidth }} solid {{ wsBarBorderColor }};
+        border-radius: {{ wsBarBorderRadius }};
+      }
+      .ws-data ul:before{ background: {{ wsBarColorBg }};}
+      .ws-data ul:after{ background: {{ wsBarColor }};}
+      .ws-estimated-ship-date {
+        font-size: {{ wsShipDateFontSize }};
+        border-color: {{ wsShipDateBorderColor }};
+      }
+    </style>
+  {%- endif -%}
 
-{%- include 'tsio-workshop-estimated-shipping-range', wsProduct: product -%}
-{%- include 'tsio-workshop-estimated-shipping-alert' -%}
+  {%- if wsData['phase'] != 'retail' -%}
+    {%- include 'tsio-workshop-estimated-shipping-range', wsProduct: product -%}
+    {%- include 'tsio-workshop-estimated-shipping-alert' -%}
+  {%- endif -%}
+{%- endif -%}
 
 {% stylesheet 'scss' %}
   @mixin keyframes($animationName){

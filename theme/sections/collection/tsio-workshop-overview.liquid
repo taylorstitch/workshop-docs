@@ -813,27 +813,33 @@
   {%- endif -%}
   <nav>
     <ul class="ws-inline-menu">
-      {%- unless activeProjects == '' -%}
-        <li{% if collection.id == workshopActiveProjectsCollection.id %} class="ws-inline-menu-active"{% endif %}>
-          <a href="{{ workshopActiveProjectsCollection.url }}" data-target="#ws-active-projects-tab">
-            {{ 'tsio.workshop.title_active_truncated' | t }}
-          </a>
-        </li>
-      {%- endunless -%}
-      {%- unless preOrders == '' -%}
-        <li{% if collection.id == workshopActivePreOrdersCollection.id %} class="ws-inline-menu-active"{% endif %}>
-          <a href="{{ workshopActivePreOrdersCollection.url }}" data-target="#ws-active-preorders-tab">
-            {{ 'tsio.workshop.title_pre_order' | t }}
-          </a>
-        </li>
-      {%- endunless -%}
-      {%- unless inProduction == '' -%}
-        <li{% if collection.id == workshopInProductionCollection.id %} class="ws-inline-menu-active"{% endif %}>
-          <a href="{{ workshopInProductionCollection.url }}" data-target="#ws-in-production-tab">
-            {{ 'tsio.workshop.title_in_production' | t }}
-          </a>
-        </li>
-      {%- endunless -%}
+      {%- comment %}
+        NOTE: menu items can be wrapped conditionally...
+        {%- unless activeProjects == '' -%}
+          ...
+        {%- endunless -%}
+        {%- unless preOrders == '' -%}
+          ...
+        {%- endunless -%}
+        {%- unless inProduction == '' -%}
+          ...
+        {%- endunless -%}
+      {% endcomment -%}
+      <li{% if collection.id == workshopPseudoActiveCollection.id %} class="ws-inline-menu-active"{% endif %}>
+        <a href="{{ workshopPseudoActiveCollection.url }}" data-target="#ws-active-projects-tab">
+          {{ 'tsio.workshop.title_active_truncated' | t }}
+        </a>
+      </li>
+      <li{% if collection.id == workshopPseudoPreOrdersCollection.id %} class="ws-inline-menu-active"{% endif %}>
+        <a href="{{ workshopPseudoPreOrdersCollection.url }}" data-target="#ws-active-preorders-tab">
+          {{ 'tsio.workshop.title_pre_order' | t }}
+        </a>
+      </li>
+      <li{% if collection.id == workshopPseudoInProductionCollection.id %} class="ws-inline-menu-active"{% endif %}>
+        <a href="{{ workshopPseudoInProductionCollection.url }}" data-target="#ws-in-production-tab">
+          {{ 'tsio.workshop.title_in_production' | t }}
+        </a>
+      </li>
     </ul>
   </nav>
   <section class="ws-collections">
@@ -924,7 +930,9 @@
     {%- unless additionalPanels == '' -%}{{ additionalPanels }}{%- endunless -%}
   {%- endif -%}
 </article>
-{% javascript %}
+<script>
+  var timezoneOffset = '{{ "now" | date: "%z" }}';
+
   (function(){
     var countDownsAvailable = document.querySelectorAll('.ws-countdown');
     var loadScript = function(url, cb){
@@ -944,7 +952,12 @@
 
       $(function(){
         $('.ws-period time').each(function(){
-            $(this).tsioCountdown($(this).attr('datetime') + ' 23:59:59', function(event) {
+            var dateString = $(this).attr('datetime')+' 23:59:59';
+            if(timezoneOffset){
+              dateString += timezoneOffset;
+            }
+            var dateObj = new Date(dateString);
+            $(this).tsioCountdown(dateObj, function(event) {
               $(this).html(event.strftime('%-Dd %Hh %Mm %Ss'));
             });
         });
@@ -953,7 +966,7 @@
 
     if(countDownsAvailable.length){
       if ((typeof jQuery === 'undefined') || (parseFloat(jQuery.fn.jquery) < 1.7)) {
-        loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', function(){
+        loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', function(){
           jQueryTSIOWorkshop = jQuery.noConflict(true);
           initCountdowns(jQueryTSIOWorkshop);
         });
@@ -962,4 +975,4 @@
       }
     }
   })();
-{% endjavascript %}
+</script>
