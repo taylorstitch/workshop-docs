@@ -8,7 +8,9 @@ The purpose of the Liquid below is to help ID different phases of Products withi
   Identify and items that are crowd-funding workshop, pre-order, and items that are in-stock (inc. Gift Cards separately)
   i.e. line.properties['_Phase'] = 'crowd-sourced' or 'retail'
 {% endcomment %}
+{% endraw %}
 
+{% raw %}
 {% assign hasNoPhaseProducts = false %}
 {% assign hasWorkshopProducts = false %}
 {% assign hasPreOrderProducts = false %}
@@ -73,7 +75,9 @@ The purpose of the Liquid below is to help ID different phases of Products withi
   {% endcomment %}
 
 {% endfor %}
+{% endraw %}
 
+{% raw %}
 {% comment %}
   Uncomment the following to "debug" inline:
 
