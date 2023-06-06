@@ -7,7 +7,7 @@
  **Usage:**
 
 ```html
-{% raw %}{% section 'tsio-workshop-product' %}{% raw %}
+{% raw %}{% section 'tsio-workshop-product' %}{% endraw %}
 ```
 
 The purpose of this snippet is to display goal progress, a remaining time countdown and estimated ship dates.
@@ -42,6 +42,7 @@ Shopify does not allow nesting of Sections out-of-the-box, but there is a workar
 Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, you should create a "token" e.g.`%%tsio-workshop-product%%`, then you can do something like this (also replacing the `shopify-section` class to avoid CSS bugs):
 
 ```html
+{% raw %}
 {% capture wsProductSection %}
   {% section 'tsio-workshop-product' %}
 {% endcapture %}
@@ -49,6 +50,7 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
 {% capture product_template %}{% section 'product-template' %}{% endcapture %}
 {% assign product_template = product_template | replace: "%%tsio-workshop-product%%", wsProductSection %}
 {{ product_template }}
+{% endraw %}
 ```
 
 **Product Add-To-Cart Disable & CTA Modification**
@@ -59,6 +61,7 @@ The code below does two things to the `input[type="submit"]#add` when the Produc
 2. When Project is not actively being funded the button is hidden altogether.
 
 ```html
+{% raw %}
 {% assign addToCartDisable = false %}
 {% assign addToCartCTA = 'Add To Cart' %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
@@ -78,6 +81,7 @@ The code below does two things to the `input[type="submit"]#add` when the Produc
 {% unless addToCartDisable %}
   <input type="submit" id="add" value="{{ addToCartCTA }}">
 {% endunless %}
+{% endraw %}
 ```
 
 **Product Estimated Shipping Ranges**
@@ -101,12 +105,14 @@ This snippet is included in the `tsio-workshop-product` Section as standard, alo
 A Product's Workshop Project data, including its current phase (e.g. 'crowd-sourced' vs 'retail') is stored as a metafield. Obviously these values change over time. It may be useful for departments within your business (like 3PL and finance) to have a snapshot of the phase at the time of purchase. To do that we suggest adding a hidden field on your Product page using logic like this:
 
 ```html
+{% raw %}
 {% assign currentPhase = 'retail' %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
 {%- if wsData -%}
   {% assign currentPhase = wsPhase %}
 {% endif %}
 <input type="hidden" name="properties[_Phase]" value="{{ currentPhase }}">
+{% endraw %}
 ```
 
 In the above we pre-assign the value as ‘retail’ and then re-assign it if Workshop data is present. The hidden field will then pass the phase through the cart and checkout as a [Line Item Property.](https://help.shopify.com/en/themes/customization/products/features/get-customization-information-for-products) (In the above the property is made invisible to the customer in checkout by the leading underscore, you can simply remove that to make it visible.) **Note:** that this hidden field may or may not be enough to work with an AJAX add-to-cart function, depending on the particulars of your theme.
@@ -116,12 +122,14 @@ In the above we pre-assign the value as ‘retail’ and then re-assign it if Wo
 Although this is core Shopify functionality, accessing the property values is a little esoteric, so here is some code to get value of the LIP created above e.g. in the Cart or in Email templates:
 
 ```html
+{% raw %}
 {% assign wsPhaseLIP = 'retail' %}
 {% assign LIPs = line.properties %}
 {% assign LIPCount = LIPs | size %}
 {% if LIPCount > 0 and LIPs['_Phase'] %}
   {% assign wsPhaseLIP = LIPs['_Phase'] %}
 {% endif %}
+{% endraw %}
 ```
 
 For further information on customizing notification emails see the [admin/emails readme](https://github.com/taylorstitch/workshop-docs/tree/master/admin/emails)
