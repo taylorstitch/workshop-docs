@@ -14,7 +14,7 @@ The purpose of this snippet is to display goal progress, a remaining time countd
 
 **Product Section Styling**
 
-Various aspect of this section — including the color\(s\), size and style of the progress bar can be altered via your theme setting panel, when viewing an active Project's Product that has the included workshop section. The rendered HTML structure of the included elements is also shown below, for the purposes of further customization styling beyond what is inherited from your theme \(typography, font sizing, etc.\):
+Various aspect of this section — including the color(s), size and style of the progress bar can be altered via your theme setting panel, when viewing an active Project's Product that has the included workshop section. The rendered HTML structure of the included elements is also shown below, for the purposes of further customization styling beyond what is inherited from your theme (typography, font sizing, etc.):
 
 ```text
 <section class="ws-data">
@@ -39,7 +39,7 @@ Some basic layout styles are applied but easily overridden by targeting the elem
 
 Shopify does not allow nesting of Sections out-of-the-box, but there is a workaround, example as follows, assuming your product.liquid collection template contains a "product-template" include...
 
-Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, you should create a "token" e.g.`%%tsio-workshop-product%%`, then you can do something like this (also replacing the`shopify-section\` class to avoid css bugs\):
+Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, you should create a "token" e.g.`%%tsio-workshop-product%%`, then you can do something like this (also replacing the `shopify-section` class to avoid CSS bugs):
 
 ```text
 {% capture wsProductSection %}
@@ -56,7 +56,7 @@ Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, 
 The code below does two things to the `input[type="submit"]#add` when the Product is part of a Workshop Project:
 
 1. When Project is Active, the CTA is modified from e.g. "Add to Cart" to "Fund Now"
-2. When Project is not actively being funded the button is hidden altogether.  
+2. When Project is not actively being funded the button is hidden altogether.
 
 ```text
 {% assign addToCartDisable = false %}
@@ -86,19 +86,19 @@ The following snippet, when included on a Product page or within a Product loop,
 
 Variables set up:
 
-* `wsShipDatesCount` number; of ship dates entered \(max 3\)
-* `wsOrderDeadlinesCount` number; of order cut-off dates entered \(max 2\)
+* `wsShipDatesCount` number; of ship dates entered (max 3)
+* `wsOrderDeadlinesCount` number; of order cut-off dates entered (max 2)
 * `wsShipDates` array; of ship dates
 * `wsOrderDeadlines` array; of order cut-off dates
-* `estShipRange1` thru `estShipRange3` string\(s\); calculated and formatted range, extending two weeks from the dates specified
-* `estShipRangeTotal` string; calculated and formatted range, from the first date specified and extending two weeks beyond the final date  
-* `cutOffDate1` thru `cutOffDate2` string\(s\); formatted dates  
+* `estShipRange1` thru `estShipRange3` string(s); calculated and formatted range, extending two weeks from the dates specified
+* `estShipRangeTotal` string; calculated and formatted range, from the first date specified and extending two weeks beyond the final date
+* `cutOffDate1` thru `cutOffDate2` string(s); formatted dates
 
 This snippet is included in the `tsio-workshop-product` Section as standard, along with `tsio-workshop-estimated-shipping-alert` that prints the above variables in CSS-styled HTML for display on Product pages. You may get mileage from the ship range snippet itself and/or the logic contained within elsewhere too e.g. in Cart, Transactional Emails, and Customer Account templates.
 
 **Product Line Item Property Field**
 
-A Product's Workshop Project data, including its current phase \(e.g. 'crowd-sourced' vs 'retail'\) is stored as a metafield. Obviously these values change over time. It may be useful for departments within your business \(like 3PL and finance\) to have a snapshot of the phase at the time of purchase. To do that we suggest adding a hidden field on your Product page using logic like this:
+A Product's Workshop Project data, including its current phase (e.g. 'crowd-sourced' vs 'retail') is stored as a metafield. Obviously these values change over time. It may be useful for departments within your business (like 3PL and finance) to have a snapshot of the phase at the time of purchase. To do that we suggest adding a hidden field on your Product page using logic like this:
 
 ```text
 {% assign currentPhase = 'retail' %}
@@ -109,7 +109,7 @@ A Product's Workshop Project data, including its current phase \(e.g. 'crowd-sou
 <input type="hidden" name="properties[_Phase]" value="{{ currentPhase }}">
 ```
 
-In the above we pre-assign the value as ‘retail’ and then re-assign it if Workshop data is present. The hidden field will then pass the phase through the cart and checkout as a [Line Item Property.](https://help.shopify.com/en/themes/customization/products/features/get-customization-information-for-products) \(In the above the property is made invisible to the customer in checkout by the leading underscore, you can simply remove that to make it visible.\) **Note:** that this hidden field may or may not be enough to work with an AJAX add-to-cart function, depending on the particulars of your theme.
+In the above we pre-assign the value as ‘retail’ and then re-assign it if Workshop data is present. The hidden field will then pass the phase through the cart and checkout as a [Line Item Property.](https://help.shopify.com/en/themes/customization/products/features/get-customization-information-for-products) (In the above the property is made invisible to the customer in checkout by the leading underscore, you can simply remove that to make it visible.) **Note:** that this hidden field may or may not be enough to work with an AJAX add-to-cart function, depending on the particulars of your theme.
 
 **Accessing Line Item Properties:**
 
