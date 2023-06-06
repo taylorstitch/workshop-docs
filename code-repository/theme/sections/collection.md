@@ -6,8 +6,8 @@
 
  **Usage:**
 
-```text
-{% section 'tsio-workshop-overview' %}
+```html
+{% raw %}{% section 'tsio-workshop-overview' %}{% endraw %}
 ```
 
 The purpose of this snippet is to generate a Collection landing page.

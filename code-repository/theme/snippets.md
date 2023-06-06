@@ -4,8 +4,8 @@
 
 The following snippet, when included on a Product page or within a Product loop, will set Liquid variables for rendering or performing logic on:
 
-```text
-{% include 'tsio-workshop-data-product', wsProduct: product %}
+```html
+{% raw %}{% include 'tsio-workshop-data-product', wsProduct: product %}{% endraw %}
 ```
 
 Variables set up:
@@ -23,7 +23,8 @@ Variables set up:
 
 Within a Collection loop, the logic below hides the `product-grid-item` include for all Workshop Projects until their phase is marked as "retail":
 
-```text
+```html
+{% raw %}
 {% assign wsProductHide = false %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
 {% if wsPhase and wsPhase != 'retail' %}
@@ -32,5 +33,5 @@ Within a Collection loop, the logic below hides the `product-grid-item` include 
 {% unless wsProductHide %}
   {% include 'product-grid-item' %}
 {% endunless %}
+{% endraw %}
 ```
-
