@@ -1,7 +1,7 @@
 # product
 
 {% hint style="info" %}
-**Code:** [/theme/locales/en.default.json](https://github.com/taylorstitch/workshop-docs/blob/master/theme/locales/en.default.json)
+**Code:** [/theme/sections/product/tsio-workshop-product.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/sections/product/tsio-workshop-product.liquid)
 {% endhint %}
 
  **Usage:**
