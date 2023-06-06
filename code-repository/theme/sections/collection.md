@@ -17,7 +17,7 @@ Various Snippets are required to correctly generate the content of this Section:
 {% endhint %}
 
 * [/theme/snippets/tsio-workshop-estimated-shipping-range.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-estimated-shipping-range.liquid)
-* [/theme/snippets/tsio-workshop-format-thousands.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-format-thousands.liquid)  
-* [/theme/snippets/tsio-workshop-product-grid-item-panel.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-product-grid-item-panel.liquid)  
-* [/theme/snippets/tsio-workshop-responsive-image.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-responsive-image.liquid)  
+* [/theme/snippets/tsio-workshop-format-thousands.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-format-thousands.liquid)
+* [/theme/snippets/tsio-workshop-product-grid-item-panel.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-product-grid-item-panel.liquid)
+* [/theme/snippets/tsio-workshop-responsive-image.liquid](https://github.com/taylorstitch/workshop-docs/blob/master/theme/snippets/tsio-workshop-responsive-image.liquid)
 
