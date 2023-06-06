@@ -2,7 +2,7 @@
 
 The purpose of the Liquid below is to help ID different phases of Products within the line\_items loop, so that they can be treated differently. \(Note that we also separate out Gift Cards. This may or may not be applicable / useful to your shop.\)
 
-```html
+```liquid
 {% raw %}
 {% comment %}
   Identify and items that are crowd-funding workshop, pre-order, and items that are in-stock (inc. Gift Cards separately)
