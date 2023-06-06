@@ -7,7 +7,7 @@
  **Usage:**
 
 ```html
-{% section 'tsio-workshop-product' %}
+{% raw %}{% section 'tsio-workshop-product' %}{% raw %}
 ```
 
 The purpose of this snippet is to display goal progress, a remaining time countdown and estimated ship dates.
