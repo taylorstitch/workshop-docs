@@ -39,9 +39,7 @@ Some basic layout styles are applied but easily overridden by targeting the elem
 
 Shopify does not allow nesting of Sections out-of-the-box, but there is a workaround, example as follows, assuming your product.liquid collection template contains a "product-template" include...
 
-Instead of using the syntax above i.e. \`
-
-`, you should create a "token" e.g.`%%tsio-workshop-product%%`, then you can do something like this (also replacing the`shopify-section\` class to avoid css bugs\):
+Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, you should create a "token" e.g.`%%tsio-workshop-product%%`, then you can do something like this (also replacing the`shopify-section\` class to avoid css bugs\):
 
 ```text
 {% capture wsProductSection %}
