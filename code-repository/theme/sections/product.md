@@ -6,7 +6,7 @@
 
  **Usage:**
 
-```text
+```liquid
 {% section 'tsio-workshop-product' %}
 ```
 
@@ -16,7 +16,7 @@ The purpose of this snippet is to display goal progress, a remaining time countd
 
 Various aspect of this section — including the color(s), size and style of the progress bar can be altered via your theme setting panel, when viewing an active Project's Product that has the included workshop section. The rendered HTML structure of the included elements is also shown below, for the purposes of further customization styling beyond what is inherited from your theme (typography, font sizing, etc.):
 
-```text
+```liquid
 <section class="ws-data">
   <ul>
     <li class="ws-period">
@@ -41,7 +41,7 @@ Shopify does not allow nesting of Sections out-of-the-box, but there is a workar
 
 Instead of using the syntax above i.e. `{% section 'tsio-workshop-product' %}`, you should create a "token" e.g.`%%tsio-workshop-product%%`, then you can do something like this (also replacing the `shopify-section` class to avoid CSS bugs):
 
-```text
+```liquid
 {% capture wsProductSection %}
   {% section 'tsio-workshop-product' %}
 {% endcapture %}
@@ -58,7 +58,7 @@ The code below does two things to the `input[type="submit"]#add` when the Produc
 1. When Project is Active, the CTA is modified from e.g. "Add to Cart" to "Fund Now"
 2. When Project is not actively being funded the button is hidden altogether.
 
-```text
+```liquid
 {% assign addToCartDisable = false %}
 {% assign addToCartCTA = 'Add To Cart' %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
@@ -100,7 +100,7 @@ This snippet is included in the `tsio-workshop-product` Section as standard, alo
 
 A Product's Workshop Project data, including its current phase (e.g. 'crowd-sourced' vs 'retail') is stored as a metafield. Obviously these values change over time. It may be useful for departments within your business (like 3PL and finance) to have a snapshot of the phase at the time of purchase. To do that we suggest adding a hidden field on your Product page using logic like this:
 
-```text
+```liquid
 {% assign currentPhase = 'retail' %}
 {% include 'tsio-workshop-data-product', wsProduct: product %}
 {%- if wsData -%}
@@ -115,7 +115,7 @@ In the above we pre-assign the value as ‘retail’ and then re-assign it if Wo
 
 Although this is core Shopify functionality, accessing the property values is a little esoteric, so here is some code to get value of the LIP created above e.g. in the Cart or in Email templates:
 
-```text
+```liquid
 {% assign wsPhaseLIP = 'retail' %}
 {% assign LIPs = line.properties %}
 {% assign LIPCount = LIPs | size %}
