@@ -4,7 +4,7 @@
     Usage:
     {%- include 'tsio-workshop-data-shop' -%}
 {%- endcomment -%}
-{%- assign wsData = shop.metafields['tsio-workshop']['summary-data'] -%}
+{%- assign wsData = shop.metafields['tsio-workshop']['summary-data'].value -%}
 {%- if wsData -%}
   {%- comment -%}
     Here we assign the data to some Liquid Variables

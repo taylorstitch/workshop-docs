@@ -3,7 +3,7 @@
 
   {%- include 'tsio-workshop-estimated-shipping-range', wsProduct: product -%}
 {%- endcomment -%}
-{%- assign wsData = wsProduct.metafields['tsio-workshop']['data'] -%}
+{%- assign wsData = wsProduct.metafields['tsio-workshop']['data'].value -%}
 {%- assign wsShipDates = wsData['ship_dates'] | split: ',' -%}
 {%- assign wsShipDatesCount = wsShipDates | size -%}
 {%- assign wsOrderDeadlines = wsData['cutoff_dates'] | split: ',' -%}

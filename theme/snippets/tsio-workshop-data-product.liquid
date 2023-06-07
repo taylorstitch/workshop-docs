@@ -14,7 +14,7 @@
 {%- assign wsShipDates = '' -%}
 {%- assign wsMsrp = nil -%}
 {%- assign wsImages = '' -%}
-{%- assign wsData = wsProduct.metafields['tsio-workshop']['data'] -%}
+{%- assign wsData = wsProduct.metafields['tsio-workshop']['data'].value -%}
 {%- if wsData -%}
   {%- comment -%}
     Here we assign the data to some Liquid Variables

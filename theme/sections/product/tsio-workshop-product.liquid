@@ -61,7 +61,7 @@
     ]
   }
 {% endschema %}
-{%- assign wsData = product.metafields['tsio-workshop']['data'] -%}
+{%- assign wsData = product.metafields['tsio-workshop']['data'].value -%}
 {%- if wsData -%}
   {%- if wsData['phase'] == 'crowd-sourced' -%}
     {%- assign wsEnds = wsData['ends_at'] -%}

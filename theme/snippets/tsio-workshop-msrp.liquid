@@ -5,7 +5,8 @@
 
         {%- assign wsMsrp = false -%}
 {%- endcomment -%}
-{%- assign wsMsrp = product.metafields['tsio-workshop']['data']['msrp'] -%}
+{%- assign wsData = wsProduct.metafields['tsio-workshop']['data'].value -%}
+{%- assign wsMsrp = wsData['msrp'] -%}
 {%- if wsMsrp and wsMsrp != empty -%}
   {%- assign compare_at_price = wsMsrp | remove: '.00' | prepend: '$' -%}
 {%- endif -%}

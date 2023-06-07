@@ -1,7 +1,7 @@
 {%- comment -%}
   Here we grab any pooled Project data i.e. sales, progress
 {%- endcomment -%}
-{%- assign wsDataPool = wsProduct.metafields['tsio-workshop']['pool'] -%}
+{%- assign wsDataPool = wsProduct.metafields['tsio-workshop']['pool'].value -%}
 {%- if wsDataPool -%}
   {%- assign wsPooledSales = wsDataPool['parent']['num_sold'] -%}
   {%- for childShop in wsDataPool['children'] -%}
